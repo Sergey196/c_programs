@@ -48,12 +48,13 @@ int main(int argc, char const *argv[])
     
     std::thread sendMy([&]() 
     {
-       size_t l;  
+       //size_t l;  
        mymsg mb;
-       char send[1024] = "";
-       while(fgets(send, sizeof(send), stdin) != NULL)
+       //char send[1024] = "";
+       //while(fgets(send, sizeof(send), stdin) != NULL)
+       while(true)
        {
-          if((l = strlen(send)) == 0) 
+          /*if((l = strlen(send)) == 0) 
           { 
              continue; 
           }
@@ -65,9 +66,11 @@ int main(int argc, char const *argv[])
           if(l == 0)
           {
              continue;  
-          }
+          }*/
+          std::string fullMessage;
+          std::getline(std::cin, fullMessage);
           
-          std::string fullMessage = std::string(send);
+          //std::string fullMessage = std::string(send);
           std::string stringIds = fullMessage.substr(0, fullMessage.find(" "));
           std::string currentMessage = fullMessage.substr(fullMessage.find(" ") + 1, fullMessage.length());
           
