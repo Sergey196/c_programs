@@ -5,6 +5,11 @@
 #include <sys/ipc.h>
 #include <sys/msg.h>
 
+#include <sys/types.h>
+#include <errno.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
 #include <thread>
 #include <algorithm>
 #include <vector>
@@ -38,75 +43,56 @@ std::vector<std::string> split(std::string str, std::string delimiter)
 int main(int argc, char const *argv[])
 {
   
-  if(argc < 2)
-  {
-     return 0; 
-  }
+    if(argc < 2)
+    {
+       return 0; 
+    }
   
-  int node_address = std::atol(argv[1]);
-  int mq = msgget(MSGKEY, 0644 | IPC_CREAT);
+    int node_address = std::atol(argv[1]);
+    int mq = msgget(MSGKEY, 0644 | IPC_CREAT);
+    mymsg mb;
     
-    std::thread sendMy([&]() 
-    {
-       //size_t l;  
-       mymsg mb;
-       //char send[1024] = "";
-       //while(fgets(send, sizeof(send), stdin) != NULL)
-       while(true)
-       {
-          /*if((l = strlen(send)) == 0) 
-          { 
-             continue; 
-          }
-          if(send[l - 1] == '\n') 
-          { 
-              send[l - 1] = 0; l--; 
-          }
-          
-          if(l == 0)
-          {
-             continue;  
-          }*/
-          std::string fullMessage;
-          std::getline(std::cin, fullMessage);
-          
-          //std::string fullMessage = std::string(send);
-          std::string stringIds = fullMessage.substr(0, fullMessage.find(" "));
-          std::string currentMessage = fullMessage.substr(fullMessage.find(" ") + 1, fullMessage.length());
-          
-          auto ids = split(stringIds, ",");
-          
-          
-          for (auto id : ids) // access by reference to avoid copying
-          {  
-             mb.mtype = std::stol(id);
-             strcpy(mb.mtext, currentMessage.c_str()); 
-             
-             if(msgsnd(mq, &mb, sizeof(mymsg), 0) == -1) 
-             {
-                 perror("msgsnd()");
-                 break;
-             }
-          }
-       }
-    });
     
-    std::thread readMy([&]()
+    int fd;
+    char send[1024];
+    
+    if ((fd=open("/dev/tty", O_RDWR | O_NONBLOCK | O_CLOEXEC | O_NOCTTY)) < 0)
     {
-       mymsg mb; 
-       while(true)
-       {
-          msgrcv(mq, &mb, sizeof(mymsg), node_address, 0);
-          printf("%s\n", mb.mtext); 
-       }
-    });
+	   fprintf(stderr, "%s: Cannot open terminal: %s (error %d)\n", argv[0], strerror(errno), errno);
+    } 
     
     while(true)
     {
+       	if(read(fd, send, sizeof(send)) >= 0)
+	    {
+          
+           std::string fullMessage = std::string(send);
+           std::string stringIds = fullMessage.substr(0, fullMessage.find(" "));
+           std::string currentMessage = fullMessage.substr(fullMessage.find(" ") + 1, fullMessage.length());
+          
+           auto ids = split(stringIds, ",");
+          
+          
+           for (auto id : ids) // access by reference to avoid copying
+           {  
+              mb.mtype = std::stol(id);
+              strcpy(mb.mtext, currentMessage.c_str()); 
+             
+              if(msgsnd(mq, &mb, sizeof(mymsg), 0) == -1) 
+              {
+                 perror("msgsnd()");
+              }
+           }
         
+        }
+        
+        if (msgrcv(mq, &mb, sizeof(mymsg), node_address, IPC_NOWAIT) >= 0)
+		{
+           printf("%s\n", mb.mtext); 
+        }
     }
     
-  return 0;
+   return 0;
 } 
  
  
