@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../libs/foo.h
+
+/projects/My programs/cmake/src/main.cpp
+iostream
+-
+foo.h
+/projects/My programs/cmake/src/foo.h
+

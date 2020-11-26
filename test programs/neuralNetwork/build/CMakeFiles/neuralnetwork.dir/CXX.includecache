@@ -1,0 +1,34 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../src/inclide/perceptron.h
+vector
+-
+string
+-
+
+/projects/My programs/neuralNetwork/src/src/main.cpp
+vector
+-
+iostream
+-
+fstream
+-
+string
+-
+perceptron.h
+/projects/My programs/neuralNetwork/src/src/perceptron.h
+
+/projects/My programs/neuralNetwork/src/src/perceptron.cpp
+perceptron.h
+/projects/My programs/neuralNetwork/src/src/perceptron.h
+iostream
+-
+fstream
+-
+

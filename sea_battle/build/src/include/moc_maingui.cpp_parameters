@@ -1,0 +1,14 @@
+-I/usr/include/qt5
+-I/usr/include/qt5/QtWidgets
+-I/usr/include/qt5/QtGui
+-I/usr/include/qt5/QtCore
+-I/usr/lib64/qt5/mkspecs/linux-g++
+-I/usr/include
+-I/usr/include/qt5
+-I/usr/include/qt5/QtCore
+-I/usr/lib64/qt5/mkspecs/linux-g++
+-I/projects/c_programs/sea_battle/src/src
+-I/projects/c_programs/sea_battle/src/include
+-o
+/projects/c_programs/sea_battle/build/src/include/moc_maingui.cpp
+/projects/c_programs/sea_battle/src/include/maingui.h

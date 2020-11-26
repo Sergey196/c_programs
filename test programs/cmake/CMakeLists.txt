@@ -1,0 +1,8 @@
+cmake_minimum_required(VERSION 2.8) 
+project(hello_world)
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin)
+set(LIBRARY_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/lib)
+include_directories(libs)
+add_executable(main ${CMAKE_SOURCE_DIR}/src/main.cpp)	
+add_subdirectory(libs)	
+target_link_libraries(main foo)	

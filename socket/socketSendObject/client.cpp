@@ -9,9 +9,8 @@
 #include <algorithm>
 #include <iostream>
 
-class Message 
+struct Message 
 {  
-public:
     int age; 
     long ss;
     float weight;
@@ -44,7 +43,7 @@ int main(int argc, char const *argv[])
           messageSend.age = 5;
           messageSend.ss = 4;
           messageSend.weight = 10;
-          strcpy(messageSend.name, "client1");
+          strcpy(messageSend.name, "client");
           send(sock , &messageSend , sizeof(messageSend) , 0 ); 
           sleep(1);
        }

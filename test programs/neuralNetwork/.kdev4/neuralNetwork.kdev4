@@ -1,0 +1,20 @@
+[Buildset]
+BuildItems=@Variant(\x00\x00\x00\t\x00\x00\x00\x00\x01\x00\x00\x00\x0b\x00\x00\x00\x00\x01\x00\x00\x00\x1a\x00n\x00e\x00u\x00r\x00a\x00l\x00N\x00e\x00t\x00w\x00o\x00r\x00k)
+
+[CMake]
+Build Directory Count=1
+Current Build Directory Index=0
+
+[CMake][CMake Build Directory 0]
+Build Directory Path=/projects/My programs/neuralNetwork/build
+Build Type=Debug
+CMake Binary=/usr/bin/cmake
+Environment Profile=
+Extra Arguments=
+Install Directory=
+
+[Project]
+VersionControlSupport=
+
+[SourceFileTemplates]
+LastUsedTemplate=/home/utkinsv/.local/share/kdevfiletemplates/template_descriptions/cpp_basic.desktop

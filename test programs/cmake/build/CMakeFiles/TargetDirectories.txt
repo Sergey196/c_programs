@@ -1,0 +1,6 @@
+/projects/My programs/cmake/build/CMakeFiles/rebuild_cache.dir
+/projects/My programs/cmake/build/CMakeFiles/main.dir
+/projects/My programs/cmake/build/CMakeFiles/edit_cache.dir
+/projects/My programs/cmake/build/libs/CMakeFiles/rebuild_cache.dir
+/projects/My programs/cmake/build/libs/CMakeFiles/foo.dir
+/projects/My programs/cmake/build/libs/CMakeFiles/edit_cache.dir

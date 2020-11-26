@@ -25,7 +25,7 @@ int main()
        while(true)
        {
           write(fd2, "send client2", sizeof("send client2"));
-          sleep(1);
+          usleep(100);
        }
     });
     
@@ -34,7 +34,7 @@ int main()
        {
           read(fd1, buf, MAX_BUF);
           printf("Received: %s\n", buf);
-          sleep(1);
+          usleep(100);
        }
     });
     

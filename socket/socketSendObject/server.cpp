@@ -11,9 +11,8 @@
 #include <iostream>
 
 
-class Message 
+struct Message 
 {  
-public:
     int age; 
     long ss;
     float weight;
@@ -67,9 +66,7 @@ int main(int argc, char const *argv[])
           messageSend.age = 5;
           messageSend.ss = 4;
           messageSend.weight = 10;
-          messageSend.name[1] = 'f';
-          messageSend.name[2] = 'c';
-          //strcpy(messageSend.name, "server");
+          strcpy(messageSend.name, "server");
           send(new_socket , &messageSend , sizeof(messageSend) , 0 ); 
           sleep(1);
        }
@@ -84,7 +81,6 @@ int main(int argc, char const *argv[])
           std::cout << "ss = " << messageSend.ss << std::endl;
           std::cout << "weight = " << messageSend.weight << std::endl;
           std::cout << "name = " << messageSend.name << std::endl;
-          //printf("%s\n",buffer ); 
           sleep(1);
        }
     });

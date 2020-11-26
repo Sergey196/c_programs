@@ -1,0 +1,12 @@
+[
+{
+  "directory": "/projects/My programs/neuralNetwork/build",
+  "command": "/usr/bin/c++   -I\"/projects/My programs/neuralNetwork/src/inclide\" -I\"/projects/My programs/neuralNetwork/src/src\"  -g   -o CMakeFiles/neuralnetwork.dir/src/src/main.cpp.o -c \"/projects/My programs/neuralNetwork/src/src/main.cpp\"",
+  "file": "/projects/My programs/neuralNetwork/src/src/main.cpp"
+},
+{
+  "directory": "/projects/My programs/neuralNetwork/build",
+  "command": "/usr/bin/c++   -I\"/projects/My programs/neuralNetwork/src/inclide\" -I\"/projects/My programs/neuralNetwork/src/src\"  -g   -o CMakeFiles/neuralnetwork.dir/src/src/perceptron.cpp.o -c \"/projects/My programs/neuralNetwork/src/src/perceptron.cpp\"",
+  "file": "/projects/My programs/neuralNetwork/src/src/perceptron.cpp"
+}
+]

@@ -1,0 +1,1 @@
+/usr/bin/c++  -g  -rdynamic CMakeFiles/neuralnetwork.dir/src/src/main.cpp.o CMakeFiles/neuralnetwork.dir/src/src/perceptron.cpp.o  -o ../bin/neuralnetwork 
