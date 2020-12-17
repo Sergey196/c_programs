@@ -22,6 +22,7 @@ set(HEADERS
    ${HEADERS_DIRECTORY}/controller.h
    ${HEADERS_DIRECTORY}/logic.h
    ${HEADERS_DIRECTORY}/ship.h
+   ${HEADERS_DIRECTORY}/pipconnectplayers.h
 )
 
 set(SOURCES
@@ -31,9 +32,11 @@ set(SOURCES
    ${SOURCES_DIRECTORY}/logic.cpp
    ${SOURCES_DIRECTORY}/maingui.cpp
    ${SOURCES_DIRECTORY}/ship.cpp
+   ${SOURCES_DIRECTORY}/pipconnectplayers.cpp
 )
 
 set (CMAKE_CXX_STANDARD 14)
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 
 qt5_wrap_cpp (MOC_SOURCES ${QTHEADERS})
 

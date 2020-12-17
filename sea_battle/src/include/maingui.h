@@ -26,6 +26,7 @@ class MainGui : public QMainWindow
 public:
     MainGui(Controller *_controller);
     void start();
+    void reloadToDefaultGui();
 private:
     void paintEvent(QPaintEvent *) override;
     void mousePressEvent( QMouseEvent* ev) override;
@@ -33,8 +34,7 @@ private:
     void mouseMoveEvent(QMouseEvent *event) override;
     void paintField();
     void paintEnemyField();
-    void paintShipsField();
-    void paintBeatField();
+    void paintFieldState();
     void paintReservShip();
     
     Controller *controller;

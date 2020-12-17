@@ -18,6 +18,7 @@
 #define LOGIC_H
 
 #include <memory>
+#include <vector>
 #include "constants.h"
 #include "cell.h"
 #include "ship.h"
@@ -29,14 +30,14 @@ class Logic
 public:
     Logic(Controller *_controller);
 
-    _baseitem::cellState getCellStatus(int x, int y);
+    _baseitem::cellState getCellStatus(int typePlayer, int x, int y);
     void cellAtacker(int x, int y);
     int getCoutCellsFreeShip();
     void addNewShip(int x, int y, int coutCells, bool verticalOrHorizontal);
     void reloadToDefault();
+    void messageResponse(std::string response, _baseitem::messageType type);
 private:
    bool changeShipCoordinatesCorrect(int x, int y, int coutCells, bool verticalOrHorizontal);
-
    bool changeVerticalStartSection(int x, int y);
    bool changeHorisontalStartSection(int x, int y);
    bool changeVerticalSection(int x, int y);
@@ -44,6 +45,14 @@ private:
    bool changeVerticalEndSection(int x, int y);
    bool changeHorisontalEndSection(int x, int y);
    bool isFieldFree(int x, int y);
+   std::vector<std::string> split(std::string str, std::string delimiter);
+   void attackerCellRequest(int x, int y);
+   void attackerCellResponse(int x, int y);
+   bool isShipDestroy(int indexPlayer, int idShip);
+   void setCellAroundDestroyShipBeat(int indexPlayer, int idShip);
+   void addEnemyPlayerShip(int x, int y, int idShip);
+   bool checkDestroyAllShips();
+   void reloadLogic();
 
 
    std::unique_ptr<Cell> cells[_baseitem::COUT_PLAYERS][_baseitem::COUT_ROWS_COLUMS][_baseitem::COUT_ROWS_COLUMS];
@@ -51,6 +60,10 @@ private:
    Controller *controller;
 
    int idCurrentChangeResShip { -1 };
+   bool isAllShipsArePlaced { false };
+   bool isAllEnemyShipsArePlaced { false };
+   bool myMove { true };
+   bool winFlag { false };
 };
 
 #endif // LOGIC_H

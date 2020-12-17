@@ -20,13 +20,16 @@ MainGui::MainGui(Controller *_controller)
    restartBtn->setGeometry(100, 685, 110, 50);
    restartBtn->show();
    connect(restartBtn, &QPushButton::released, [this]() {
-      xpos = -1;
-      ypos = -1;
-      reservShipChangeFlag = false;
-      verticalOrHorisontal = true;
       controller->reloadToDefault();
-      repaint();
    });
+}
+//---------------------------------------------------------------------------
+void MainGui::reloadToDefaultGui()
+{
+    xpos = -1;
+    ypos = -1;
+    reservShipChangeFlag = false;
+    verticalOrHorisontal = true;
 }
 //---------------------------------------------------------------------------
 void MainGui::start()
@@ -38,8 +41,7 @@ void MainGui::paintEvent(QPaintEvent *)
 {
    paintField();
    paintEnemyField();
-   paintShipsField();
-   paintBeatField();
+   paintFieldState();
    paintReservShip();
 }
 //---------------------------------------------------------------------------
@@ -82,26 +84,11 @@ void MainGui::paintField()
    
    painter.setBrush(Qt::transparent);
    painter.drawRect(_baseitem::SHIP_RESERV_PANEl_X0, _baseitem::SHIP_RESERV_PANEl_Y0, _baseitem::SHIP_RESERV_PANEl_WIDTH, _baseitem::SHIP_RESERV_PANEl_HEIGHT);
-   
-   /*if(xpos >= 0 || ypos >= 0)
-   {
-      QPainter painter(this);
-      painter.setBrush(Qt::black);
-      painter.drawRect(xpos, ypos, _baseitem::CELL_WIDTH_HIIGHT, _baseitem::CELL_WIDTH_HIIGHT);
-   }*/
 }
 //---------------------------------------------------------------------------
 void MainGui::paintEnemyField()
 {
    QPainter painter(this);
-   
-   int i = 0;
-   int j = 0;
-
-   auto drawWaterField = [&]() {
-       painter.setBrush(Qt::blue);
-       painter.drawRect((i + 14) * _baseitem::CELL_WIDTH_HIIGHT, (j + 2) * _baseitem::CELL_WIDTH_HIIGHT, _baseitem::CELL_WIDTH_HIIGHT, _baseitem::CELL_WIDTH_HIIGHT);
-   };
    
    painter.setFont(QFont("times",22));
    painter.drawText(_baseitem::CELL_WIDTH_HIIGHT * 14, _baseitem::CELL_WIDTH_HIIGHT, _baseitem::CELL_WIDTH_HIIGHT, _baseitem::CELL_WIDTH_HIIGHT, Qt::AlignCenter, "А");
@@ -118,14 +105,6 @@ void MainGui::paintEnemyField()
    for(int i = 0; i < _baseitem::COUT_ROWS_COLUMS; i++)
    {
       painter.drawText(_baseitem::CELL_WIDTH_HIIGHT * 13, _baseitem::CELL_WIDTH_HIIGHT * (i + 2), _baseitem::CELL_WIDTH_HIIGHT, _baseitem::CELL_WIDTH_HIIGHT, Qt::AlignCenter, QString::number(i));
-   }
-   
-   for(i = 0; i < _baseitem::COUT_ROWS_COLUMS; i++)
-   {
-      for(j = 0; j < _baseitem::COUT_ROWS_COLUMS; j++)
-      {
-          drawWaterField();
-      }
    }
 }
 //---------------------------------------------------------------------------
@@ -154,17 +133,50 @@ void MainGui::paintReservShip()
    
 }
 //---------------------------------------------------------------------------
-void MainGui::paintShipsField()
+void MainGui::paintFieldState()
 {
     int i = 0;
     int j = 0;  
     QPainter painter(this); 
     
-   auto fieldPainter = [&](_baseitem::cellState cellStatus) {
-       if(cellStatus == _baseitem::ship_normal)
+   auto fieldPainter = [&](int typePlayer, _baseitem::cellState cellStatus) {
+       int x0 = -1;
+       int y0 = -1;
+
+       if(typePlayer == _baseitem::PLAYER_INDEX)
        {
-          painter.setBrush(Qt::black);
-          painter.drawRect((i + 2) * _baseitem::CELL_WIDTH_HIIGHT, (j + 2) * _baseitem::CELL_WIDTH_HIIGHT, _baseitem::CELL_WIDTH_HIIGHT, _baseitem::CELL_WIDTH_HIIGHT);
+          x0 = (i + 2) * _baseitem::CELL_WIDTH_HIIGHT;
+          y0 = (j + 2) * _baseitem::CELL_WIDTH_HIIGHT;
+       }
+       else if(typePlayer == _baseitem::ENEMY_INDEX)
+       {
+           x0 = (i + 14) * _baseitem::CELL_WIDTH_HIIGHT;
+           y0 = (j + 2) * _baseitem::CELL_WIDTH_HIIGHT;
+       }
+
+       if(cellStatus == _baseitem::free_normal || cellStatus == _baseitem::enemy_ship_normal)
+       {
+          painter.setBrush(Qt::blue);
+          painter.drawRect(x0, y0, _baseitem::CELL_WIDTH_HIIGHT, _baseitem::CELL_WIDTH_HIIGHT);
+       }
+       else if(cellStatus == _baseitem::free_beat)
+       {
+           painter.setBrush(Qt::blue);
+           painter.drawRect(x0, y0, _baseitem::CELL_WIDTH_HIIGHT, _baseitem::CELL_WIDTH_HIIGHT);
+           painter.setBrush(Qt::red);
+           painter.drawEllipse(QPointF(x0 + (_baseitem::CELL_WIDTH_HIIGHT/2), y0 + (_baseitem::CELL_WIDTH_HIIGHT/2)), _baseitem::CELL_WIDTH_HIIGHT/2, _baseitem::CELL_WIDTH_HIIGHT/2);
+       }
+       else if(cellStatus == _baseitem::ship_normal)
+       {
+           painter.setBrush(Qt::black);
+           painter.drawRect(x0, y0, _baseitem::CELL_WIDTH_HIIGHT, _baseitem::CELL_WIDTH_HIIGHT);
+       }
+       else if(cellStatus == _baseitem::ship_beat)
+       {
+           painter.setBrush(Qt::black);
+           painter.drawRect(x0, y0, _baseitem::CELL_WIDTH_HIIGHT, _baseitem::CELL_WIDTH_HIIGHT);
+           painter.setBrush(Qt::red);
+           painter.drawEllipse(QPointF(x0 + (_baseitem::CELL_WIDTH_HIIGHT/2), y0 + (_baseitem::CELL_WIDTH_HIIGHT/2)), _baseitem::CELL_WIDTH_HIIGHT/2, _baseitem::CELL_WIDTH_HIIGHT/2);
        }
    };
     
@@ -173,46 +185,8 @@ void MainGui::paintShipsField()
     {
        for(j = 0; j < _baseitem::COUT_ROWS_COLUMS; j++)
        {
-          fieldPainter(controller->getCellStatus(i, j));
-       }
-    }
-}
-//---------------------------------------------------------------------------
-void MainGui::paintBeatField()
-{
-    int i = 0;
-    int j = 0;  
-    QPainter painter(this);
-    
-   auto drawFreeFieldBeatMark = [&]() {
-       painter.setBrush(Qt::black);
-       painter.drawEllipse(QPointF(((i + 2) * _baseitem::CELL_WIDTH_HIIGHT) + _baseitem::CELL_WIDTH_HIIGHT/2, ((j + 2) * _baseitem::CELL_WIDTH_HIIGHT) + _baseitem::CELL_WIDTH_HIIGHT/2), _baseitem::CELL_WIDTH_HIIGHT/2, _baseitem::CELL_WIDTH_HIIGHT/2);
-   };
-
-
-   auto fieldPainter = [&](_baseitem::cellState cellStatus) {
-       switch (cellStatus)
-       {
-          case _baseitem::free_beat:
-          {
-             drawFreeFieldBeatMark();
-             break;
-          }
-          case _baseitem::ship_beat:
-          {
-             //drawBeatMark();
-             break;
-          }
-          default:
-             ;
-       }
-   };
-    
-    for(i = 0; i < _baseitem::COUT_ROWS_COLUMS; i++)
-    {
-       for(j = 0; j < _baseitem::COUT_ROWS_COLUMS; j++)
-       {
-          fieldPainter(controller->getCellStatus(i, j));
+          fieldPainter(_baseitem::PLAYER_INDEX, controller->getCellStatus(_baseitem::PLAYER_INDEX, i, j));
+          fieldPainter(_baseitem::ENEMY_INDEX, controller->getCellStatus(_baseitem::ENEMY_INDEX, i, j));
        }
     }
 }
@@ -253,6 +227,10 @@ void MainGui::mouseReleaseEvent(QMouseEvent *event)
           verticalOrHorisontal = true;
       }
       repaint();
+   }
+   else
+   {
+      controller->cellAtacker(((int)event->pos().x()/_baseitem::CELL_WIDTH_HIIGHT) - 14, ((int)event->pos().y()/_baseitem::CELL_WIDTH_HIIGHT) - 2);
    }
 }
 //---------------------------------------------------------------------------

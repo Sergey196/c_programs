@@ -22,6 +22,7 @@ class Cell
 public:
     void setDefault();
     void setShip(int shipId);
+    int getIdShip() { return idShip; }
 
     bool isShip() { return isShipFlag; }
     bool isBroken() { return brokenFlag; }

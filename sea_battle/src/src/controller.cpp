@@ -15,22 +15,25 @@
  */
 
 #include "controller.h"
+#include <iostream>
 
 Controller::Controller()
 { 
    logic = std::make_unique<Logic>(this);
    gui = std::make_unique<MainGui>(this);
+   messager = std::make_unique<PipConnectPlayers>(this);
 }
 
 //---------------------------------------------------------------------------
-void Controller::start()
+void Controller::start(int idRunProgramm, int idAnotherPlaer)
 {
+   messager->start(idRunProgramm, idAnotherPlaer);
    gui->start();
 }
 //---------------------------------------------------------------------------
-_baseitem::cellState Controller::getCellStatus(int x, int y)
+_baseitem::cellState Controller::getCellStatus(int typePlayer, int x, int y)
 {
-   logic->getCellStatus(x, y);
+   logic->getCellStatus(typePlayer, x, y);
 }
 //---------------------------------------------------------------------------
 void Controller::cellAtacker(int x, int y)
@@ -51,4 +54,24 @@ void Controller::addNewShip(int x, int y, int coutCells, bool verticalOrHorizont
 void Controller::reloadToDefault()
 {
    logic->reloadToDefault();
+}
+//---------------------------------------------------------------------------
+void Controller::messageRequest(std::string request, _baseitem::messageType type)
+{
+   messager->sendMessage(request, type);
+}
+//---------------------------------------------------------------------------
+void Controller::messageResponse(std::string response, _baseitem::messageType type)
+{
+   logic->messageResponse(response, type);
+}
+//---------------------------------------------------------------------------
+void Controller::repaint()
+{
+   gui->repaint();
+}
+//---------------------------------------------------------------------------
+void Controller::reloadToDefaultGui()
+{
+   gui->reloadToDefaultGui();
 }

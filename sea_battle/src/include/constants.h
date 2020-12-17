@@ -1,5 +1,5 @@
-
-const int a = 10;
+#ifndef TDEFINES_BASEITEM_H
+#define TDEFINES_BASEITEM_H 1
 
 namespace _baseitem
 {
@@ -21,6 +21,19 @@ namespace _baseitem
       free_normal,
       free_beat,
       ship_normal,
+      enemy_ship_normal,
       ship_beat
    };
+
+   enum messageType
+   {
+       addShip,
+       allEnemyShipsPlaced,
+       attackCellRequest,
+       attackCellResponse,
+       reloadShips,
+       playerWin
+   };
 };
+
+#endif

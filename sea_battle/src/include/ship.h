@@ -26,11 +26,14 @@ public:
     void setActive() { isActiveFlag = true; }
     void setInActive() { isActiveFlag = false; }
     int getCoutCell() { return coutCell; }
-    void refreshState() { isActiveFlag = false; coutNormalCell = coutCell; }
+    void refreshState() { isActiveFlag = false; coutNormalCell = coutCell; destroyFlag = false; }
+    bool isDestroy() { return destroyFlag; }
+    void setDestroyFlag() { destroyFlag = true; }
 private:
    int coutCell;
    int coutNormalCell;
-   bool isActiveFlag {false};
+   bool isActiveFlag { false };
+   bool destroyFlag { false };
 };
 
 #endif // SHIP_H

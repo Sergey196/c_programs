@@ -20,22 +20,28 @@
 #include <memory>
 #include "logic.h"
 #include "maingui.h"
+#include "pipconnectplayers.h"
 
 class Controller
 {
 public:
     Controller();
     
-    void start();
-    _baseitem::cellState getCellStatus(int x, int y);
+    void start(int idRunProgramm, int idAnotherPlaer);
+    _baseitem::cellState getCellStatus(int typePlayer, int x, int y);
     void cellAtacker(int x, int y);
     int getCoutCellsFreeShip();
     void addNewShip(int x, int y, int coutCells, bool verticalOrHorizontal);
     void reloadToDefault();
+    void messageRequest(std::string request, _baseitem::messageType type);
+    void messageResponse(std::string response, _baseitem::messageType type);
+    void repaint();
+    void reloadToDefaultGui();
     
 private: 
    std::unique_ptr<Logic> logic;
    std::unique_ptr<MainGui> gui;
+   std::unique_ptr<PipConnectPlayers> messager;
 };
 
 #endif // CONTROLLER_H

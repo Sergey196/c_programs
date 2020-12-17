@@ -4,14 +4,15 @@
 
 int main(int argc, char** argv)
 {
-    /*QApplication app(argc, argv);
-    sea_battle sea_battle;
-    sea_battle.show()
-    return app.exec();*/
-    
     QApplication a(argc, argv); 
     Controller controller;
-    controller.start();
+
+    if(argc < 3)
+    {
+       return 0;
+    }
+
+    controller.start(atoi(argv[1]), atoi(argv[2]));
     
     return a.exec();
 }
