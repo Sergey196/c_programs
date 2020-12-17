@@ -1,0 +1,42 @@
+[
+{
+  "directory": "/projects/c_programs/sea_battle/build",
+  "command": "/usr/bin/c++  -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -isystem /usr/include/qt5 -isystem /usr/include/qt5/QtWidgets -isystem /usr/include/qt5/QtGui -isystem /usr/include/qt5/QtCore -isystem /usr/lib64/qt5/mkspecs/linux-g++ -I/projects/c_programs/sea_battle/src/src -I/projects/c_programs/sea_battle/src/include   -pthread -g   -fPIC -std=gnu++14 -o CMakeFiles/sea_battle.dir/src/include/moc_maingui.cpp.o -c /projects/c_programs/sea_battle/build/src/include/moc_maingui.cpp",
+  "file": "/projects/c_programs/sea_battle/build/src/include/moc_maingui.cpp"
+},
+{
+  "directory": "/projects/c_programs/sea_battle/build",
+  "command": "/usr/bin/c++  -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -isystem /usr/include/qt5 -isystem /usr/include/qt5/QtWidgets -isystem /usr/include/qt5/QtGui -isystem /usr/include/qt5/QtCore -isystem /usr/lib64/qt5/mkspecs/linux-g++ -I/projects/c_programs/sea_battle/src/src -I/projects/c_programs/sea_battle/src/include   -pthread -g   -fPIC -std=gnu++14 -o CMakeFiles/sea_battle.dir/src/src/main.cpp.o -c /projects/c_programs/sea_battle/src/src/main.cpp",
+  "file": "/projects/c_programs/sea_battle/src/src/main.cpp"
+},
+{
+  "directory": "/projects/c_programs/sea_battle/build",
+  "command": "/usr/bin/c++  -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -isystem /usr/include/qt5 -isystem /usr/include/qt5/QtWidgets -isystem /usr/include/qt5/QtGui -isystem /usr/include/qt5/QtCore -isystem /usr/lib64/qt5/mkspecs/linux-g++ -I/projects/c_programs/sea_battle/src/src -I/projects/c_programs/sea_battle/src/include   -pthread -g   -fPIC -std=gnu++14 -o CMakeFiles/sea_battle.dir/src/src/cell.cpp.o -c /projects/c_programs/sea_battle/src/src/cell.cpp",
+  "file": "/projects/c_programs/sea_battle/src/src/cell.cpp"
+},
+{
+  "directory": "/projects/c_programs/sea_battle/build",
+  "command": "/usr/bin/c++  -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -isystem /usr/include/qt5 -isystem /usr/include/qt5/QtWidgets -isystem /usr/include/qt5/QtGui -isystem /usr/include/qt5/QtCore -isystem /usr/lib64/qt5/mkspecs/linux-g++ -I/projects/c_programs/sea_battle/src/src -I/projects/c_programs/sea_battle/src/include   -pthread -g   -fPIC -std=gnu++14 -o CMakeFiles/sea_battle.dir/src/src/controller.cpp.o -c /projects/c_programs/sea_battle/src/src/controller.cpp",
+  "file": "/projects/c_programs/sea_battle/src/src/controller.cpp"
+},
+{
+  "directory": "/projects/c_programs/sea_battle/build",
+  "command": "/usr/bin/c++  -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -isystem /usr/include/qt5 -isystem /usr/include/qt5/QtWidgets -isystem /usr/include/qt5/QtGui -isystem /usr/include/qt5/QtCore -isystem /usr/lib64/qt5/mkspecs/linux-g++ -I/projects/c_programs/sea_battle/src/src -I/projects/c_programs/sea_battle/src/include   -pthread -g   -fPIC -std=gnu++14 -o CMakeFiles/sea_battle.dir/src/src/logic.cpp.o -c /projects/c_programs/sea_battle/src/src/logic.cpp",
+  "file": "/projects/c_programs/sea_battle/src/src/logic.cpp"
+},
+{
+  "directory": "/projects/c_programs/sea_battle/build",
+  "command": "/usr/bin/c++  -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -isystem /usr/include/qt5 -isystem /usr/include/qt5/QtWidgets -isystem /usr/include/qt5/QtGui -isystem /usr/include/qt5/QtCore -isystem /usr/lib64/qt5/mkspecs/linux-g++ -I/projects/c_programs/sea_battle/src/src -I/projects/c_programs/sea_battle/src/include   -pthread -g   -fPIC -std=gnu++14 -o CMakeFiles/sea_battle.dir/src/src/maingui.cpp.o -c /projects/c_programs/sea_battle/src/src/maingui.cpp",
+  "file": "/projects/c_programs/sea_battle/src/src/maingui.cpp"
+},
+{
+  "directory": "/projects/c_programs/sea_battle/build",
+  "command": "/usr/bin/c++  -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -isystem /usr/include/qt5 -isystem /usr/include/qt5/QtWidgets -isystem /usr/include/qt5/QtGui -isystem /usr/include/qt5/QtCore -isystem /usr/lib64/qt5/mkspecs/linux-g++ -I/projects/c_programs/sea_battle/src/src -I/projects/c_programs/sea_battle/src/include   -pthread -g   -fPIC -std=gnu++14 -o CMakeFiles/sea_battle.dir/src/src/ship.cpp.o -c /projects/c_programs/sea_battle/src/src/ship.cpp",
+  "file": "/projects/c_programs/sea_battle/src/src/ship.cpp"
+},
+{
+  "directory": "/projects/c_programs/sea_battle/build",
+  "command": "/usr/bin/c++  -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -isystem /usr/include/qt5 -isystem /usr/include/qt5/QtWidgets -isystem /usr/include/qt5/QtGui -isystem /usr/include/qt5/QtCore -isystem /usr/lib64/qt5/mkspecs/linux-g++ -I/projects/c_programs/sea_battle/src/src -I/projects/c_programs/sea_battle/src/include   -pthread -g   -fPIC -std=gnu++14 -o CMakeFiles/sea_battle.dir/src/src/pipconnectplayers.cpp.o -c /projects/c_programs/sea_battle/src/src/pipconnectplayers.cpp",
+  "file": "/projects/c_programs/sea_battle/src/src/pipconnectplayers.cpp"
+}
+]
