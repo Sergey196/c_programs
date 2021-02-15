@@ -23,7 +23,7 @@ class Student{
 
 int main() {
 
-    Student one;
+    /*Student one;
     strcpy(one.name, "Cancan Can");
     strcpy(one.address, "example example exampla");
     one.gender = 'M';
@@ -41,6 +41,29 @@ int main() {
     ifs.close();
 
     cout << "Student Name: " << two.name << endl;
+    cout << "Student Name: " << &one << endl;
+    cout << "Student Name: " << &two << endl;*/
+    
+    Student *one = new Student();
+    strcpy(one->name, "Cancan Can");
+    strcpy(one->address, "example example exampla");
+    one->gender = 'M';
+    one->age = 25;
+    one->is_blabla = true;
+    cout << "Student Name: " << one->name << endl;
+
+    ofstream ofs("fifthgrade.ros", ios::binary);
+    ofs.write((char *)one, sizeof(Student));
+    ofs.close();
+
+    Student *two = new Student();
+    ifstream ifs("fifthgrade.ros", ios::binary);
+    ifs.read((char *)two, sizeof(Student));
+    ifs.close();
+
+    cout << "Student Name: " << two->name << endl;
+    cout << "Student Name: " << &one << endl;
+    cout << "Student Name: " << &two << endl;
 
 
     return 0;

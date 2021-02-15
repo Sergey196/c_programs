@@ -1,3 +1,0 @@
-/projects/c_programs/sea_battle/build/CMakeFiles/rebuild_cache.dir
-/projects/c_programs/sea_battle/build/CMakeFiles/sea_battle.dir
-/projects/c_programs/sea_battle/build/CMakeFiles/edit_cache.dir
