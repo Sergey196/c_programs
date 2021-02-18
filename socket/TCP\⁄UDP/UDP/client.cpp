@@ -8,56 +8,39 @@
 #include <iostream>
 #define PORT 8080 
    
-int main(int argc, char const *argv[]) 
-{ 
-    int sock = 0, valread; 
-    struct sockaddr_in serv_addr; 
-    char buffer[1024] = {0}; 
-    if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0) 
-    { 
-        printf("\n Socket creation error \n"); 
-        return -1; 
+int main() { 
+    int sockfd; 
+    char buffer[1024]; 
+    char hello[] = "Hello from client"; 
+    struct sockaddr_in     servaddr; 
+  
+    // Creating socket file descriptor 
+    if ( (sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0 ) { 
+        perror("socket creation failed"); 
+        exit(EXIT_FAILURE); 
     } 
-    
-    std::cout << "TEST1" << std::endl; 
-   
-    serv_addr.sin_family = AF_INET; 
-    serv_addr.sin_port = htons(PORT); 
-       
-    // Convert IPv4 and IPv6 addresses from text to binary form 
-    if(inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr)<=0)  
-    { 
-        printf("\nInvalid address/ Address not supported \n"); 
-        return -1; 
-    } 
-   
-    if (connect(sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0) 
-    { 
-        printf("\nConnection Failed \n"); 
-        return -1; 
-    } 
-    
-    int status = fcntl(sock, F_SETFL, fcntl(sock, F_GETFL, 0) | O_NONBLOCK);
-
-    if (status == -1)
-    {
-       perror("calling fcntl");
-    }
-    
+  
+    memset(&servaddr, 0, sizeof(servaddr)); 
+      
+    // Filling server information 
+    servaddr.sin_family = AF_INET; 
+    servaddr.sin_port = htons(PORT); 
+    servaddr.sin_addr.s_addr = INADDR_ANY; 
+      
+    int len = sizeof(servaddr); 
+      
     while(true)
-    { 
-        std::string hello = "Hello from client"; 
-        int res1 = send(sock, hello.c_str(), hello.length(), 0);   
-        
-        int res2 = recv(sock , buffer, 1024, 0);  
-        
-        std::cout << "TEST1 = " << res1 <<  std::endl; 
-        std::cout << "TEST1 = " << res2 <<  std::endl; 
-        std::cout << "TEST3 = " << buffer << std::endl;  
-        memset(buffer, 0, sizeof(buffer));
-        sleep(1); 
-    }  
-    
+    {
+       sendto(sockfd, (const char *)hello, strlen(hello), MSG_CONFIRM, (const struct sockaddr *) &servaddr,  sizeof(servaddr)); 
+          
+       recvfrom(sockfd, (char *)buffer, 1024,  MSG_DONTWAIT, (struct sockaddr *) &servaddr, (socklen_t*)&len); 
+       
+       std::cout << "TEST = " << buffer << std::endl;
+       memset(buffer, 0, sizeof(buffer));
+       sleep(10); 
+    }
+  
+    close(sockfd); 
     return 0; 
-}  
+} 
 
