@@ -37,7 +37,7 @@ int main() {
        
        std::cout << "TEST = " << buffer << std::endl;
        memset(buffer, 0, sizeof(buffer));
-       sleep(10); 
+       sleep(1); 
     }
   
     close(sockfd); 

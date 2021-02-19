@@ -11,7 +11,7 @@
 #define PORT 8080 
 int main(int argc, char const *argv[]) 
 { 
-    int server_fd, new_socket, valread; 
+    int server_fd, new_socket; 
     struct sockaddr_in address; 
     int opt = 1; 
     int addrlen = sizeof(address); 
@@ -22,9 +22,13 @@ int main(int argc, char const *argv[])
         perror("socket failed"); 
         exit(EXIT_FAILURE); 
     }  
+    
+    struct timeval timeout;
+    timeout.tv_sec = 1;
+    timeout.tv_usec = 0;
        
     // Forcefully attaching socket to the port 8080 
-    if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &opt, sizeof(opt))) 
+    if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &timeout, sizeof(timeout))) 
     { 
         perror("setsockopt"); 
         exit(EXIT_FAILURE); 
@@ -32,6 +36,11 @@ int main(int argc, char const *argv[])
     address.sin_family = AF_INET; 
     address.sin_addr.s_addr = INADDR_ANY; 
     address.sin_port = htons( PORT ); 
+    
+    /*struct timeval timeout;
+    timeout.tv_sec = 1;
+    timeout.tv_usec = 0;
+    setsockopt(server_fd, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout));*/
        
     // Forcefully attaching socket to the port 8080 
     if (bind(server_fd, (struct sockaddr *)&address, sizeof(address)) < 0) 
@@ -39,6 +48,7 @@ int main(int argc, char const *argv[])
         perror("bind failed"); 
         exit(EXIT_FAILURE); 
     } 
+    
     if (listen(server_fd, 3) < 0) 
     { 
         perror("listen"); 
@@ -51,13 +61,8 @@ int main(int argc, char const *argv[])
         exit(EXIT_FAILURE); 
     } 
     
-    int status = fcntl(new_socket, F_SETFL, fcntl(new_socket, F_GETFL, 0) | O_NONBLOCK);
+    //fcntl(new_socket, F_SETFL, O_NONBLOCK);
 
-    if (status == -1)
-    {
-       perror("calling fcntl");
-    }
-    
     while(true)
     { 
         std::string hello = "Hello from server"; 
@@ -69,9 +74,8 @@ int main(int argc, char const *argv[])
         std::cout << "TEST1 = " << res2 <<  std::endl; 
         std::cout << "TEST3 = " << buffer << std::endl; 
         memset(buffer, 0, sizeof(buffer));
-        sleep(10); 
+        sleep(1); 
     }  
-    
     return 0; 
 }  
  
