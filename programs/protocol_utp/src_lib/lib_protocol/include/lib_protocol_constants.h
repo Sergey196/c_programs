@@ -1,32 +1,52 @@
 #ifndef TDEFINES_LIB_INTEGRITY_CONSTANTS_H
 #define TDEFINES_LIB_INTEGRITY_CONSTANTS_H 1
 
+#include <memory>
+#include <ctime>
+
 namespace _protocol
-{
-   /**
-   * @brief Типы подсчётов контрольных сумм
-   * 
-   */
-   enum hashCountingMethod
+{          
+   enum messageType
    {
-      md5,         
-      crc8,
-      crc32,
+      messagePequest,         
+      messagePesponse,
+      messageConfirmation,
+      messageHeartBeat
    };
 
-   const int fileBuferSize = 512;   ///< Максимальный размер части файла для заполнения буфера
-   const int maxObjectSize = 512;   ///< Максимальный размер объекта
-   const int gostsumSize = 32;      ///< Размер результата подсчёта контрольной суммы алгоритма гост 2012
-   const int md5Size = 16;          ///< Размер результата подсчёта контрольной суммы алгоритма md5
-   
-   /**
-   * @brief Информация об объекте для буфера подсчёта контрольной суммы
-   * 
-   */
-   struct ObjectInfo
+   const int messageSize = 10000;  
+   const int messageCout = 1000; 
+   const int messageCoutPart = 1000; 
+   const int messageTimeout = 1;
+   const int timeoutHeartBeatMaxCout = 10;
+    
+   struct TMessage
    {
-      int objectSize;       ///< Размер объекта
-      void *objectPointer;  ///< Указатель на обект
+      int idMessage { 0 };
+      std::time_t time { 0 };
+      _protocol::messageType typeMessage { messageHeartBeat };
+      char data[_protocol::messageSize] { 0 };
+   };
+
+   struct TSocetSettings
+   {
+      int port { 8080 };
+      bool isServer { false };
+   };
+// 
+   class TMessageResponseIface
+   {
+      public:
+         virtual void messageResponse(TMessage message) = 0;
+         virtual void heartBeatState(bool state) = 0;
+   };
+   
+   struct LibProtocolSettings
+   {
+      int periodHardBeart { 1 };      
+      int perioProcessMessages { 1 };
+      TSocetSettings socetSettings;
+      std::weak_ptr<TMessageResponseIface> messageResponseIface;
    };
 
 }

@@ -1,30 +1,37 @@
 #ifndef TMANEGER_H
 #define TMANEGER_H
 
+#include <vector>
+#include <stdlib.h>
+#include "lib_protocol_constants.h"
+
 namespace _protocol
 {
-   struct LibProtocolSettings
-   {
-      int port { 8080 };       
-   };
-    
-    
+   class TMessageProcess;
+   
    class TManeger
    {
       public:
          TManeger(LibProtocolSettings settings);
          void start();
+         void messageRequest(void *message, int size);
+
       private:
+         void messageResponseProcess();
+         void checkMessagesProcess();
+         void messageHeartBeatProcess();
+         void chechHeartBeatTimeoutProcess();
+         void clearMessagesState(int beginIndex, int endIndex);
+
          LibProtocolSettings settings;
-   };
-   
-   
-   class TProtocolMesIface
-   {
-      public: 
-          virtual void messageRequest(void *mes) = 0; 
-          virtual void messageResponse(void *mes) = 0;
-          virtual void hardBeatResponse() = 0;
+         TMessageProcess* messageProcess;
+
+         std::vector<TMessage> listOfMess;
+         bool isMessageSend[_protocol::messageCout] { true };
+         unsigned int numberMessage { 0 };
+         bool heartBetaFlag { false };
+         int coutTimeoutHeartBeat { 0 };
+         pthread_mutex_t messMutex; 
    };
 }
 

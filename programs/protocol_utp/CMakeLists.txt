@@ -3,6 +3,8 @@ set (PROJECT_PROTOCOL_UTP protocol_utp)
 project(${PROJECT_PROTOCOL_UTP})
 cmake_minimum_required(VERSION 3.7)
 
+set (CMAKE_CXX_STANDARD 20)
+
 ###############################################
 file(MAKE_DIRECTORY ${CMAKE_SOURCE_DIR}/lib)
 file(MAKE_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
@@ -22,7 +24,6 @@ set(RUNTIME_PROGRAMMS
 )
 
 SET(CMAKE_CXX_FLAGS -pthread)
-SET(CMAKE_CXX_FLAGS -lcrypto)
 
 message(${CMAKE_SYSTEM_NAME} ${CMAKE_SYSTEM_VERSION})
 ###############################################

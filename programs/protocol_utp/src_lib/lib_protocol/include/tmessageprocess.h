@@ -1,19 +1,26 @@
 #ifndef TMESSAGEPROCESS_H
 #define TMESSAGEPROCESS_H
 
+#include "lib_protocol_constants.h"
+#include <netinet/in.h> 
+
 namespace _protocol
 {
-   struct LibProtocolSocketSettings
-   {
-      int periodHardBeart { 1000 };      
-      int perioProcessMessages { 1000 };
-      LibProtocolSettings socetSettings;
-   };
-
    class TMessageProcess
    {
-      public:
-         TMessageProcess();
+      public: 
+         TMessageProcess(TSocetSettings _settings) { settings = _settings; }
+         ~TMessageProcess();
+         void operator()(TMessageProcess* ptr) { ptr = ptr; }
+         void initSocket();
+         void closeSocket();
+         void messageRequest(TMessage &message);
+         bool messageResponse(TMessage &message);
+      
+      private:
+         TSocetSettings settings; 
+         int sockfd;
+         struct sockaddr_in sendAdr;
    };
 }
 

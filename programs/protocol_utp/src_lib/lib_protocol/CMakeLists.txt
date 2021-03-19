@@ -58,6 +58,7 @@ set(ALLHEADERS ${HEADERS} ${QTHEADERS})
 INCLUDE(IncludeOnlyHeaders)
 include_only_headers(${ALLHEADERS})
 
+SET(CMAKE_CXX_FLAGS -ltbb)
 
 add_library (${PROJECT_LIB_PROTOCOL} SHARED ${HEADERS} ${SOURCES})
 
