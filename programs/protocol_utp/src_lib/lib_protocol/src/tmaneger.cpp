@@ -11,7 +11,7 @@ namespace _protocol
    TManeger::TManeger(LibProtocolSettings _settings)
    {
       settings = _settings;
-      messageProcess = new TMessageProcess(settings.socetSettings);
+      messageProcess = std::make_shared<TMessageProcess>(settings.socetSettings);
       pthread_mutex_init (&messMutex, NULL);
    }
    //-----------------------------------------------------------------------------

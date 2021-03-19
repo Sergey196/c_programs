@@ -11,7 +11,6 @@ namespace _protocol
       public: 
          TMessageProcess(TSocetSettings _settings) { settings = _settings; }
          ~TMessageProcess();
-         void operator()(TMessageProcess* ptr) { ptr = ptr; }
          void initSocket();
          void closeSocket();
          void messageRequest(TMessage &message);

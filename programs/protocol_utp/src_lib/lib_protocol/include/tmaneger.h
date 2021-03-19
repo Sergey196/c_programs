@@ -2,6 +2,7 @@
 #define TMANEGER_H
 
 #include <vector>
+#include <memory>
 #include <stdlib.h>
 #include "lib_protocol_constants.h"
 
@@ -24,7 +25,7 @@ namespace _protocol
          void clearMessagesState(int beginIndex, int endIndex);
 
          LibProtocolSettings settings;
-         TMessageProcess* messageProcess;
+         std::shared_ptr<TMessageProcess> messageProcess;
 
          std::vector<TMessage> listOfMess;
          bool isMessageSend[_protocol::messageCout] { true };
