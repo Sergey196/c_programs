@@ -5,6 +5,7 @@
 #include <thread>
 #include <ctime>
 #include <iostream>
+#include <algorithm>
 
 namespace _protocol
 {
@@ -150,5 +151,10 @@ namespace _protocol
       {
           isMessageSend[i] = true;
       }
+      pthread_mutex_lock (&messMutex);
+      std::remove_if(listOfMess.begin(), listOfMess.end(), [&beginIndex,&endIndex](auto &message) {
+          return (message.idMessage >= beginIndex) && (message.idMessage <= endIndex);
+      });
+      pthread_mutex_unlock (&messMutex);        
    }
 }
