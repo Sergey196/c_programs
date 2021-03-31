@@ -2,8 +2,6 @@
 #include <cstdarg>
 #include <functional>
 
-using namespace std::placeholders;
-
 class A
 {
    public:
@@ -46,7 +44,7 @@ class B
 int main ()
 {  
     B beee;
-    beee.funcForFunc([&](const char* fmt...) 
+    beee.funcForFunc([](const char* fmt...)
     {
        va_list args;
        va_start(args, fmt);
