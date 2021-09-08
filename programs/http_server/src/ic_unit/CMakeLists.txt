@@ -1,0 +1,30 @@
+cmake_minimum_required(VERSION 3.5)
+set (PROJECT_NAME flash_manager_rmo)
+project(${PROJECT_NAME} LANGUAGES CXX)
+
+set(RUNTIME_OUTPUT_DIRECTORY ./bin)
+
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+
+###############################################
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+find_package(Qt5 COMPONENTS Widgets REQUIRED)
+
+set(HEADERS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include)
+set(SOURCES_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/src)
+
+include_directories(${HEADERS_DIRECTORY} ${SOURCES_DIRECTORY})
+
+set(FILES
+   ${SOURCES_DIRECTORY}/main.cpp
+   ${HEADERS_DIRECTORY}/defines_ic.hpp
+)
+
+add_executable(${PROJECT_NAME} ${FILES})
+install(TARGETS ${PROJECT_NAME} DESTINATION ${RUNTIME_OUTPUT_DIRECTORY})
