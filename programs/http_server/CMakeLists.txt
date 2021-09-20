@@ -1,5 +1,5 @@
 ###############################################
-set (PROJECT_INTEGRITY_CONTROL integrity_control)
+set (PROJECT_INTEGRITY_CONTROL http_server)
 project(${PROJECT_INTEGRITY_CONTROL})
 cmake_minimum_required(VERSION 3.7)
 

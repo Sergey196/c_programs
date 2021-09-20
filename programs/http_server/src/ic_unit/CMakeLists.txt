@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-set (PROJECT_NAME flash_manager_rmo)
+set (PROJECT_NAME server)
 project(${PROJECT_NAME} LANGUAGES CXX)
 
 set(RUNTIME_OUTPUT_DIRECTORY ./bin)

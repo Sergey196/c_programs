@@ -1,37 +1,85 @@
-#include <memory>
-#include <cstdint>
+// Server side C/C++ program to demonstrate Socket programming 
+#include <unistd.h>
+#include <fcntl.h>
+#include <stdio.h> 
+#include <sys/socket.h> 
+#include <stdlib.h> 
+#include <netinet/in.h> 
+#include <arpa/inet.h>
+#include <string.h> 
 #include <iostream>
-#include <evhttp.h>
 
+int main(int argc, char const *argv[]) 
+{ 
+    int server_fd; 
+    struct sockaddr_in address; 
+    int opt = 1; 
+    int addrlen = sizeof(address); 
+    char buffer[1024]; 
 
-int main()
-{
-  /*if (!event_init())
-  {
-    std::cerr << "Failed to init libevent." << std::endl;
-    return -1;
-  }*/
-  char const SrvAddress[] = "127.0.0.1";
-  std::uint16_t SrvPort = 5555;
-  std::unique_ptr<evhttp, decltype(&evhttp_free)> Server(evhttp_start(SrvAddress, SrvPort), &evhttp_free);
-  if (!Server)
-  {
-    std::cerr << "Failed to init http server." << std::endl;
-    return -1;
-  }
-  void (*OnReq)(evhttp_request *req, void *) = [] (evhttp_request *req, void *)
-  {
-    auto *OutBuf = evhttp_request_get_output_buffer(req);
-    if (!OutBuf)
-      return;
-    evbuffer_add_printf(OutBuf, "<html><body><center><h1>Hello Wotld!</h1></center></body></html>");
-    evhttp_send_reply(req, HTTP_OK, "", OutBuf);
-  };
-  evhttp_set_gencb(Server.get(), OnReq, nullptr);
-  if (event_dispatch() == -1)
-  {
-    std::cerr << "Failed to run messahe loop." << std::endl;
-    return -1;
-  }
-  return 0;
-}
+    if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0) 
+    { 
+        perror("socket failed"); 
+    }  
+    
+    address.sin_family = AF_INET; 
+    //address.sin_addr.s_addr = INADDR_ANY; 
+    address.sin_port = htons(8001); 
+    inet_pton(AF_INET, "127.0.0.1", &(address.sin_addr.s_addr));
+    
+    if (bind(server_fd, (struct sockaddr *)&address, sizeof(address)) < 0) 
+    { 
+        perror("bind failed"); 
+    } 
+    
+    if (listen(server_fd, 3) < 0) 
+    { 
+        perror("listen"); 
+    } 
+    
+
+    while(true)
+    {
+        int client_socket = accept(server_fd, (struct sockaddr *)&address, (socklen_t*)&addrlen); 
+        std::cout << "TEST1 = " << client_socket << std::endl;
+        if (client_socket < 0) 
+        { 
+            perror("accept"); 
+        } 
+        
+        int resultRecv = recv(client_socket, buffer, sizeof(buffer), 0); 
+        
+        std::cout << "TEST2 = " << resultRecv << std::endl;
+        
+        if (resultRecv == -1) 
+        {
+            std::cout << "SocketError1 = " << resultRecv <<  std::endl;
+            close(client_socket);
+        } 
+        else if(resultRecv == 0)
+        {
+            std::cout << "Socket close = " << resultRecv <<  std::endl;
+            close(client_socket); 
+        }
+        
+        std::cout << "TEST3 = " << buffer << std::endl;
+        
+        //////////////////////////////////////
+        std::string hello = "HTTP/1.1 200 OK\r\nVersion: HTTP/1.1\r\nContent-Type: text/html; charset=utf-8\r\nContent-Length: <title>Test C++ HTTP Server</title>\n<h1>Test page</h1>\n<p>This is body of the test page...</p>\n<h2>Request headers</h2>\n<pre>" + std::string(buffer) + "</pre>\n<em><small>Test C++ Http Server</small></em>\n\r\n\r\n";
+
+        int resultSend = send(client_socket, hello.c_str(), hello.length(), 0); 
+        
+        std::cout << "TEST4 = " << resultSend << std::endl;
+        
+        if (resultSend == -1) 
+        {
+            std::cout << "SocketError2 = " << resultSend <<  std::endl;
+        } 
+        close(client_socket);
+    }  
+    
+    close(server_fd);
+    
+    return 0; 
+}  
+ 
