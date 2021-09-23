@@ -7,8 +7,8 @@
 namespace _ftp_server
 { 
    thread_local static std::ifstream file;
-   thread_local static int socketDiscr = 0;
 
+   //-----------------------------------------------------------------------------
    TLogic::TLogic(TConfig _info)
    {
       socket = new TSocket(_info, this);
@@ -19,19 +19,20 @@ namespace _ftp_server
       socket->start(); 
    }
    //-----------------------------------------------------------------------------
-   void TLogic::createNewSesion(int sock)
+   void TLogic::createNewSesion()
    {
-      socketDiscr = sock;
       while(true)  
       {
          TMessage message;
-         int result = socket->recvMessage(socketDiscr, &message); 
+         int result = socket->recvMessage(&message); 
          
-         if(result == -1)
+         std::cout << "TEST1 = " << message.command << std::endl;
+         std::cout << "TEST2 = " << result << std::endl;
+         
+         if(result < 1)
          {
             continue;  
          }
-         
          
          switch(message.command) 
          {
@@ -51,13 +52,13 @@ namespace _ftp_server
                return;
             }
          }
-         usleep(100);
+         usleep(1000);
       }
    }
    //-----------------------------------------------------------------------------
    void TLogic::startLoudFile(char *command)
    {
-      std::cout << "TEST startLoudFile" << std::endl; 
+      std::cout << "TEST startLoudFile = " << command << std::endl; 
       file.open(command, std::ios::binary );
       
       if(file.fail())
@@ -80,13 +81,15 @@ namespace _ftp_server
       else
       {
          message.command = commandEnd; 
+         file.close();
+         std::cout << "TEST endFile" << std::endl;
       }
-      socket->sendPackage(socketDiscr, &message);
+      socket->sendPackage(&message);
    }
    //-----------------------------------------------------------------------------
    void TLogic::endSesion()
    {
       std::cout << "TEST endSesion" << std::endl;  
-      socket->closeConnection(socketDiscr); 
+      socket->closeConnection(); 
    }
 }

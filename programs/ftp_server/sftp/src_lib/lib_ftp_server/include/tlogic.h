@@ -3,6 +3,7 @@
 
 #include <fstream>
 #include "lib_ftp_constants.h"
+#include <openssl/ssl.h>
 
 namespace _ftp_server
 { 
@@ -12,7 +13,7 @@ namespace _ftp_server
    public:
        TLogic(TConfig _info);
        void start();
-       void createNewSesion(int sock);
+       void createNewSesion();
    private:
        void startLoudFile(char *command);
        void sendData();

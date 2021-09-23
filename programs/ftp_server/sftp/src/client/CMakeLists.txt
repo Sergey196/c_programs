@@ -47,6 +47,8 @@ ${HEADERS_DIRECTORY}/defines_ic.hpp
 set(SOURCES
 ${SOURCES_DIRECTORY}/main.cpp
 )
+
+SET(CMAKE_CXX_FLAGS -lssl)
 ###############################################
 add_executable(${PROJECT_CLIENT} ${HEADERS} ${SOURCES})
 target_link_libraries(${PROJECT_CLIENT} ${LIBRARIES_PROJECT_CLIENT_NAME} )

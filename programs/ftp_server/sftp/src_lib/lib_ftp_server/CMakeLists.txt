@@ -49,9 +49,9 @@ set(SOURCES
 include_directories(${LIB_GOST_INCLUDE_DIR})
 ##########################################################################################
 
+SET(CMAKE_CXX_FLAGS -lssl)
 
 add_library (${PROJECT_LIB_FTP} SHARED ${HEADERS} ${SOURCES})
-
 set_target_properties(${PROJECT_LIB_ISHTAR_FIFO} PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/lib)
 ###############################################
 target_link_libraries(${PROJECT_LIB_FTP} ${LIBRARIES_LIB_ISHTAR_FIFO_NAME} ${LIB_GOST_LIBRARIES})

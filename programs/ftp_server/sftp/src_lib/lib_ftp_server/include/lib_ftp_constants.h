@@ -25,10 +25,8 @@ namespace _ftp_server
    //-----------------------------------------------------------------------------
    struct TConfig
    {
-      int port { 8081 }; 
-      int timeout { 1 };
+      int port { 8080 }; 
       int sleepInterval { 2000 };
-      int maxConnects { 1000 };
    };
 }
 

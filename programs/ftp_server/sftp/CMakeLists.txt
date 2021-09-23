@@ -20,8 +20,8 @@ set(LIBRARIES
 )
 
 set(RUNTIME_PROGRAMMS
-  client
   server
+  client
 )
 
 SET(CMAKE_CXX_FLAGS -pthread)
