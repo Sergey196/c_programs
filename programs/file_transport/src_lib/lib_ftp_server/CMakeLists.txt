@@ -3,6 +3,7 @@ project(${PROJECT_LIB_FTP})
 cmake_minimum_required(VERSION 3.16.0)
 ###############################################
 
+find_package(OpenSSL REQUIRED)
 
 set(RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 ###############################################
@@ -49,10 +50,10 @@ set(SOURCES
 include_directories(${LIB_GOST_INCLUDE_DIR})
 ##########################################################################################
 
-SET(CMAKE_CXX_FLAGS -lssl)
+#SET(CMAKE_CXX_FLAGS -lssl)
 
 add_library (${PROJECT_LIB_FTP} SHARED ${HEADERS} ${SOURCES})
 set_target_properties(${PROJECT_LIB_ISHTAR_FIFO} PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/lib)
 ###############################################
-target_link_libraries(${PROJECT_LIB_FTP} ${LIBRARIES_LIB_ISHTAR_FIFO_NAME} ${LIB_GOST_LIBRARIES})
+target_link_libraries(${PROJECT_LIB_FTP} ${LIBRARIES_LIB_ISHTAR_FIFO_NAME} ${LIB_GOST_LIBRARIES} OpenSSL::SSL)
 install(TARGETS ${PROJECT_LIB_FTP} LIBRARY DESTINATION ${CMAKE_SOURCE_DIR}/lib)

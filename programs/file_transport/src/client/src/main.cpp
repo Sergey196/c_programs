@@ -30,7 +30,7 @@ int main()
         printf("\nConnection Failed \n"); 
     }
     
-    const SSL_METHOD *method = TLS_client_method(); /* Create new client-method instance */
+    const SSL_METHOD *method = DTLS_client_method(); /* Create new client-method instance */
     SSL_CTX *ctx = SSL_CTX_new(method);
     SSL *ssl = SSL_new(ctx);
     
@@ -39,22 +39,20 @@ int main()
     int status = SSL_connect(ssl);
     
     SSL_CTX_set_ecdh_auto(ctx, 1);
-
-    if (SSL_CTX_use_certificate_file(ctx, "MyCertificate.crt", SSL_FILETYPE_PEM) <= 0) 
+ 
+    if (SSL_CTX_use_certificate_file(ctx, "cert.pem1", SSL_FILETYPE_PEM) <= 0) 
     {
         //ERR_print_errors_fp(stderr);
 	    exit(EXIT_FAILURE);
     }
 
-    if (SSL_CTX_use_PrivateKey_file(ctx, "MyKey.key", SSL_FILETYPE_PEM) <= 0 ) 
+    if (SSL_CTX_use_PrivateKey_file(ctx, "key.pem1", SSL_FILETYPE_PEM) <= 0 ) 
     {
         //ERR_print_errors_fp(stderr);
 	    exit(EXIT_FAILURE);
     }
     
     ////////////////
-    
-    char buffer[512];
 
     printf("SSL connection using %s\n", SSL_get_cipher (ssl));
     
@@ -77,15 +75,15 @@ int main()
         usleep(100); 
         memset(message.data, 0, sizeof(message.data));
         //int res = recv(sock, &message, sizeof(_ftp_server::TMessage), 0);
-        int res = SSL_read(ssl, buffer, sizeof(buffer));
+        int res = SSL_read(ssl, &message, sizeof(_ftp_server::TMessage));
         
-        std::cout << "TEST recv = " << res <<  std::endl; 
+        //std::cout << "TEST recv = " << res <<  std::endl; 
         
         if(res < 1)
         {
            continue; 
         }
-        std::cout << "TEST0 = " << message.command <<  std::endl;  
+        //std::cout << "TEST0 = " << message.command <<  std::endl;  
         if(message.command == _ftp_server::commandData)
         {
            std::cout << "TEST1" <<  std::endl;  
@@ -98,6 +96,7 @@ int main()
            std::cout << "TEST2" <<  std::endl;    
            //send(sock, &message, sizeof(_ftp_server::TMessage), 0);
            SSL_write(ssl, &message, sizeof(_ftp_server::TMessage));
+           break;
         }
     }  
     outfile.close();

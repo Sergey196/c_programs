@@ -2,6 +2,8 @@
 set (PROJECT_CLIENT client)
 project(${PROJECT_CLIENT})
 
+find_package(OpenSSL REQUIRED)
+
 ###############################################
 cmake_minimum_required(VERSION 3.16.0)
 set(CMAKE_CXX_STANDARD 17)
@@ -48,10 +50,9 @@ set(SOURCES
 ${SOURCES_DIRECTORY}/main.cpp
 )
 
-SET(CMAKE_CXX_FLAGS -lssl)
 ###############################################
 add_executable(${PROJECT_CLIENT} ${HEADERS} ${SOURCES})
-target_link_libraries(${PROJECT_CLIENT} ${LIBRARIES_PROJECT_CLIENT_NAME} )
+target_link_libraries(${PROJECT_CLIENT} ${LIBRARIES_PROJECT_CLIENT_NAME} OpenSSL::SSL)
 set_target_properties(${PROJECT_CLIENT} PROPERTIES LINK_FLAGS "-g -pg") #для профилировщика gprof
 
 install(TARGETS ${PROJECT_CLIENT} RUNTIME DESTINATION ${RUNTIME_OUTPUT_DIRECTORY})

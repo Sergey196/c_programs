@@ -76,7 +76,7 @@ namespace _ftp_server
    //-----------------------------------------------------------------------------
    void TSocket::create_context()
    {
-       const SSL_METHOD *method = TLS_server_method();
+       const SSL_METHOD *method = DTLS_server_method();
        ctxSSL = SSL_CTX_new(method);
        if (!ctxSSL) 
        {
@@ -91,13 +91,13 @@ namespace _ftp_server
        SSL_CTX_set_ecdh_auto(ctxSSL, 1);
    
        /* Set the key and cert */
-       if (SSL_CTX_use_certificate_file(ctxSSL, "MyCertificate.crt", SSL_FILETYPE_PEM) <= 0) 
+       if (SSL_CTX_use_certificate_file(ctxSSL, "cert.pem", SSL_FILETYPE_PEM) <= 0) 
        {
            //ERR_print_errors_fp(stderr);
    	       exit(EXIT_FAILURE);
        }
    
-       if (SSL_CTX_use_PrivateKey_file(ctxSSL, "MyKey.key", SSL_FILETYPE_PEM) <= 0 ) 
+       if (SSL_CTX_use_PrivateKey_file(ctxSSL, "key.pem", SSL_FILETYPE_PEM) <= 0 ) 
        {
            //ERR_print_errors_fp(stderr);
    	       exit(EXIT_FAILURE);
