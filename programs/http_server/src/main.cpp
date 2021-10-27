@@ -8,6 +8,12 @@
 #include <openssl/err.h>
 #include <iostream>
 
+struct RequestData
+{
+   std::string SecFetchDest;
+   std::string DataValue;
+};
+
 void init_openssl()
 { 
     SSL_load_error_strings();	
@@ -94,7 +100,7 @@ int main()
     init_openssl();
     ctx = create_context();
     configure_context(ctx);
-    sock = create_socket(8000);
+    sock = create_socket(8001);
     
 
     while(true)
@@ -131,9 +137,9 @@ int main()
             std::cout << "Socket close = " << resultRecv <<  std::endl;
         }
 
-        
+        std::cout << buffer << std::endl;
         //////////////////////////////////////
-        std::string hello = "HTTP/1.1 200 OK\r\nVersion: HTTP/1.1\r\nContent-Type: text/html; charset=utf-8\r\nContent-Length: <title>Test C++ HTTP Server</title>\n<h1>Test page</h1>\n<p>This is body of the test page...</p>\n<h2>Request headers</h2>\n<pre>" + std::string(buffer) + "</pre>\n<em><small>Test C++ Http Server</small></em>\n\r\n\r\n";
+        std::string hello = "HTTP/1.1 200 OK Version: HTTP/1.1 Content-Type: text/html; charset=utf-8 Content-Length: " + std::string(buffer) + "<title>Test C++ HTTP Server</title><h1>Test page</h1><p>This is body of the test page...</p><h2>Request headers</h2><pre>" + std::string(buffer) + "</pre>\n<em><small>Test C++ Http Server</small></em>";
 
         //int resultSend = send(client_socket, hello.c_str(), hello.length(), 0); 
         int resultSend = SSL_write(ssl, hello.c_str(), hello.length());
@@ -154,3 +160,7 @@ int main()
     return 0; 
 }  
  
+void fileParser()
+{
+    
+}

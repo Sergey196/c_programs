@@ -1,23 +1,30 @@
-###############################################
-set (PROJECT_INTEGRITY_CONTROL http_server)
-project(${PROJECT_INTEGRITY_CONTROL})
-cmake_minimum_required(VERSION 3.7)
+cmake_minimum_required(VERSION 3.5)
+set (PROJECT_NAME server)
+project(${PROJECT_NAME} LANGUAGES CXX)
 
-###############################################
+set(RUNTIME_OUTPUT_DIRECTORY ./bin)
 file(MAKE_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 file(MAKE_DIRECTORY ${CMAKE_SOURCE_DIR}/build)
-###############################################
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin)
 
-set(RUNTIME_PROGRAMMS
-  ic_unit
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+
+###############################################
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+find_package(OpenSSL REQUIRED)
+
+set(HEADERS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include)
+set(SOURCES_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/src)
+
+include_directories(${HEADERS_DIRECTORY} ${SOURCES_DIRECTORY})
+
+set(FILES
+   ${SOURCES_DIRECTORY}/main.cpp
+   ${HEADERS_DIRECTORY}/defines_ic.hpp
 )
 
-message(${CMAKE_SYSTEM_NAME} ${CMAKE_SYSTEM_VERSION})
-###############################################
-foreach(PROGRAMM ${RUNTIME_PROGRAMMS})
-   add_subdirectory(${CMAKE_SOURCE_DIR}/src/${PROGRAMM} ${CMAKE_SOURCE_DIR}/build/${PROGRAMM})
-   include_directories(${CMAKE_SOURCE_DIR}/src/${PROGRAMM}/include/)   
-endforeach(PROGRAMM)
-###############################################
-
+add_executable(${PROJECT_NAME} ${FILES})
+target_link_libraries(${PROJECT_NAME} OpenSSL::SSL)
+install(TARGETS ${PROJECT_NAME} DESTINATION ${RUNTIME_OUTPUT_DIRECTORY})

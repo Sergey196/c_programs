@@ -38,7 +38,7 @@ int readServ(int s) {
     do {
         char buff[512] ={' '};
         recv(s,&buff,512,0);   ///получаем данные из потока
-        cout << buff;
+        std::cout << buff;
         rc = select(s+1,&fdr,NULL,NULL,&timeout);    ///ждём данные для чтения в потоке 1 сек. <a href="http://how2.org.ua/%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5/%D0%B8%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D1%83%D0%B5%D0%BC-select-%D0%B4%D0%BB%D1%8F-%D0%BC%D0%BE%D0%BD%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D0%BD%D0%B3%D0%B0-%D0%B4%D0%BE%D1%81%D1%82%D1%83%D0%BF%D0%BD%D0%BE%D1%81%D1%82%D0%B8-%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85.html">подробнее о select </a>
     } while(rc);     ///проверяем результат
     return 2;
@@ -48,7 +48,7 @@ int init_data() {
     send(s,"PASV\r\n",strlen("PASV\r\n"),0);
     char buff[128];
     recv(s,buff,128,0);
-    std::cout << buff; ////выводим на экран полученную от сервера строку
+    std::std::cout << buff; ////выводим на экран полученную от сервера строку
     int a,b;
     char *tmp_char;
     tmp_char = strtok(buff,"(");
@@ -74,12 +74,12 @@ int init_data() {
 }
 
 int login() {
-    cout << "Введите имя: "; char name[64]; cin >> name;
+    std::cout << "Введите имя: "; char name[64]; cin >> name;
     char str[512];
     sprintf(str,"USER %s\r\n",name);
     send(s,str,strlen(str),0);
     readServ();
-    std::cout << "Введите пароль: "; char pass[64]; std::cin >> pass;
+    std::std::cout << "Введите пароль: "; char pass[64]; std::cin >> pass;
     sprintf(str,"PASS %s\r\n",pass);
     send(s,str,strlen(str),0);
     readServ();
@@ -94,7 +94,7 @@ int get(char *file) {
     /* получение размера файла */
     char size[512];
     recv(s,size,512,0);
-    cout << size;
+    std::cout << size;
  
     char *tmp_size;
     tmp_size = strtok(size,"(");
@@ -114,7 +114,7 @@ int get(char *file) {
             read += readed;  ///увеличиваем количество скачанных данных
         } while (read < file_size);
     fclose(f);
-    std::cout << "Готово. Ожидание ответа сервера...\n";
+    std::std::cout << "Готово. Ожидание ответа сервера...\n";
     return 0;
 }
  
