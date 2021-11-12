@@ -7,6 +7,8 @@
 #include <openssl/ssl.h>
 #include <openssl/err.h>
 #include <iostream>
+#include <fstream>
+#include "instruments.h"
 
 struct RequestData
 {
@@ -100,7 +102,7 @@ int main()
     init_openssl();
     ctx = create_context();
     configure_context(ctx);
-    sock = create_socket(8001);
+    sock = create_socket(8000);
     
 
     while(true)
@@ -136,13 +138,25 @@ int main()
         {
             std::cout << "Socket close = " << resultRecv <<  std::endl;
         }
+        
+        _baseitem::HttpResponse info = _baseitem::fileParser(buffer);
+        
+        std::cout << "TEST1 = " << info.host << std::endl;  
+        std::cout << "TEST2 = " << info.sec_fetch_dest << std::endl;
+        std::cout << "TEST3 = " << info.url << std::endl;  
+        std::string message;
+        if(info.sec_fetch_dest.find("document") != std::string::npos)
+        {  
+           message = "<head><link rel=\"stylesheet\" href=\"/index.css\"></head><title>Test C++ HTTP Server</title><h1>Test page</h1><p>This is body of the test page...</p><h2>Request headers</h2><pre>" + std::string(buffer) + "</pre>\n<em><small>Test C++ Http Server</small></em>"; 
+        } else if(info.sec_fetch_dest.find("image") != std::string::npos) { 
+            message = _baseitem::readFile("../resorces/favicon.ico");
+        } else if(info.sec_fetch_dest.find("style") != std::string::npos) { 
+            message = _baseitem::readFile("../resorces/index.css");
+        }
 
-        std::cout << buffer << std::endl;
-        //////////////////////////////////////
-        std::string hello = "HTTP/1.1 200 OK Version: HTTP/1.1 Content-Type: text/html; charset=utf-8 Content-Length: " + std::string(buffer) + "<title>Test C++ HTTP Server</title><h1>Test page</h1><p>This is body of the test page...</p><h2>Request headers</h2><pre>" + std::string(buffer) + "</pre>\n<em><small>Test C++ Http Server</small></em>";
-
+        std::string response { _baseitem::createResponse(message) };
         //int resultSend = send(client_socket, hello.c_str(), hello.length(), 0); 
-        int resultSend = SSL_write(ssl, hello.c_str(), hello.length());
+        int resultSend = SSL_write(ssl, response.c_str(), response.length());
         
         if (resultSend == -1) 
         {
@@ -159,8 +173,3 @@ int main()
     
     return 0; 
 }  
- 
-void fileParser()
-{
-    
-}

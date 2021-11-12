@@ -22,7 +22,7 @@ include_directories(${HEADERS_DIRECTORY} ${SOURCES_DIRECTORY})
 
 set(FILES
    ${SOURCES_DIRECTORY}/main.cpp
-   ${HEADERS_DIRECTORY}/defines_ic.hpp
+   ${HEADERS_DIRECTORY}/instruments.h
 )
 
 add_executable(${PROJECT_NAME} ${FILES})
