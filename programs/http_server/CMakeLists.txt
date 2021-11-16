@@ -21,10 +21,13 @@ set(SOURCES_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/src)
 include_directories(${HEADERS_DIRECTORY} ${SOURCES_DIRECTORY})
 
 set(FILES
+   ${SOURCES_DIRECTORY}/tprocess.cpp
    ${SOURCES_DIRECTORY}/main.cpp
+   ${HEADERS_DIRECTORY}/tprocess.h
    ${HEADERS_DIRECTORY}/instruments.h
 )
 
+SET(CMAKE_CXX_FLAGS -pthread)
 add_executable(${PROJECT_NAME} ${FILES})
 target_link_libraries(${PROJECT_NAME} OpenSSL::SSL)
 install(TARGETS ${PROJECT_NAME} DESTINATION ${RUNTIME_OUTPUT_DIRECTORY})
