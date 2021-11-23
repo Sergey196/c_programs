@@ -33,7 +33,7 @@ TProcess::TProcess()
     init_openssl();
     create_context();
     configure_context();
-    sock = create_socket(8000);
+    sock = create_socket(443);
 }
 //-----------------------------------------------------------------------------
 TProcess::~TProcess()
