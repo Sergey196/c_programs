@@ -10,6 +10,8 @@ namespace _baseitem
 {
    const std::string keyPath = "../resorces/certificates/shc-key.pem";
    const std::string certPath = "../resorces/certificates/shc-cert.pem";
+   const int PORT { 443 };
+   
    inline std::string createResponse(std::string message)
    {
       return "HTTP/1.1 200 OK\nVersion: HTTP/1.1\nContent-Type: text/html\ncharset=utf-8\nContent-Length: " + std::to_string(message.length()) + "\n\n" + message;  

@@ -33,7 +33,7 @@ TProcess::TProcess()
     init_openssl();
     create_context();
     configure_context();
-    sock = create_socket(443);
+    sock = create_socket(_baseitem::PORT);
 }
 //-----------------------------------------------------------------------------
 TProcess::~TProcess()
@@ -142,7 +142,7 @@ int TProcess::create_socket(int port)
 
     addr.sin_family = AF_INET;
     addr.sin_port = htons(port);
-    inet_pton(AF_INET, "127.0.0.1", &(addr.sin_addr.s_addr));
+    inet_pton(AF_INET, "192.168.1.10", &(addr.sin_addr.s_addr));
 
     s = socket(AF_INET, SOCK_STREAM, 0);
     if (s < 0) 
