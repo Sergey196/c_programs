@@ -19,6 +19,7 @@
 
 #include <openssl/ssl.h>
 #include <openssl/err.h>
+#include <string>
 
 class TProcess
 {
@@ -35,6 +36,7 @@ class TProcess
       void requestProcess(int client_socket);
       void initClient(int client_socket);
       void closeClient(int client_socket);
+      void readFile(std::string filePath);
       
       int sock;
       static thread_local SSL *ssl;

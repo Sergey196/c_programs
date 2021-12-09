@@ -5,29 +5,31 @@
 #include <vector>
 #include <fstream>
 #include <iostream>
+#include <algorithm>
 
 namespace _baseitem
 {
-   const std::string keyPath = "../resorces/certificates/shc-key.pem";
-   const std::string certPath = "../resorces/certificates/shc-cert.pem";
+   const std::string resorcesPath = "../resorces";
+   const std::string keyPath = resorcesPath + "/certificates/shc-key.pem";
+   const std::string certPath = resorcesPath + "/certificates/shc-cert.pem";
+   //const std::string responsePref { "HTTP/2.0 200 OK\nVersion: HTTP/2.0\ncharset=utf-8Content-Length: 88\n\n" };
    const int PORT { 443 };
    
-   inline std::string createResponse(std::string message)
+   /*enum typeFile
    {
-      return "HTTP/1.1 200 OK\nVersion: HTTP/1.1\nContent-Type: text/html\ncharset=utf-8\nContent-Length: " + std::to_string(message.length()) + "\n\n" + message;  
+      html,
+      css,
+      ico
+   };*/
+   
+   inline std::string createResponse200(std::string message, int size)
+   {
+      return "HTTP/2.0 200 OK\nVersion: HTTP/2.0\ncharset=utf-8\nContent-Length: " + std::to_string(size) + "\n\n" + message;  
    }
    
-   inline std::string readFile(std::string file)
+   inline std::string createResponse404()
    {
-      std::string result; 
-      std::ifstream imgStream(file);
-      std::cout << "TEST readFile = " << file << std::endl; 
-      std::string line;
-      while(std::getline(imgStream, line)) {
-         result += line;
-      }
-      imgStream.close(); 
-      return result;
+      return "HTTP/2.0 404 OK\nVersion: HTTP/2.0\ncharset=utf-8\n\n";  
    }
      
    struct HttpResponse
@@ -50,20 +52,22 @@ namespace _baseitem
       list.push_back(str);
       return list;
    };
-     
+
    inline HttpResponse fileParser(std::string fileText)
    {
-       HttpResponse info;
        std::vector<std::string> listLines = split(fileText, "\n");
        listLines.resize(14);
        std::string message = listLines.at(0);
+       std::string url;
+       std::string sec_fetch_dest;
+       std::string host;
        if(message.find("POST") != std::string::npos)
        {
-          info.url = message.substr(5, message.length() - 13);
+          url = message.substr(5, message.length() - 13);
        } else if(message.find("GET") != std::string::npos) {
-          info.url = message.substr(4, message.length() - 13);
+          url = message.substr(4, message.length() - 13);
        } else { 
-          return info; 
+          return HttpResponse(); 
        }
        
        for(std::string line : listLines)
@@ -78,17 +82,25 @@ namespace _baseitem
              continue; 
           }
           
-          std::string lineDataName = line.substr(0, pos); 
+          std::string lineDataName = line.substr(0, pos ); 
           std::string lineDataInfo = line.substr(pos + 2, line.length()); 
           
           //host;
           if(lineDataName == "Host")
           {
-             info.host = lineDataInfo;  
+             host = lineDataInfo;  
           } else if(lineDataName == "Sec-Fetch-Dest") {
-             info.sec_fetch_dest = lineDataInfo;  
+             sec_fetch_dest = lineDataInfo;  
           }
        }
+       url.erase(std::remove_if(url.begin(), url.end(), isspace));
+       host.erase(std::remove_if(host.begin(), host.end(), isspace));
+       sec_fetch_dest.erase(std::remove_if(sec_fetch_dest.begin(), sec_fetch_dest.end(), isspace));
+       
+       HttpResponse info;
+       info.url = url;
+       info.host = host;
+       info.sec_fetch_dest = sec_fetch_dest;
        return info;
    };
 };

@@ -62,7 +62,7 @@ void TProcess::requestProcess(int client_socket)
    initClient(client_socket);
    if (SSL_accept(ssl) <= 0) 
    {
-       ERR_print_errors_fp(stderr);
+       //ERR_print_errors_fp(stderr);
    }
    
    //int resultRecv = recv(client_socket, buffer, sizeof(buffer), 0); 
@@ -80,31 +80,55 @@ void TProcess::requestProcess(int client_socket)
        closeClient(client_socket);
        return;
    }
-   
+
    _baseitem::HttpResponse info = _baseitem::fileParser(buffer);
-   
-   //std::cout << "TEST1 = " << info.host << std::endl;  
+   std::cout << "TEST1 = " << info.url << std::endl;
    //std::cout << "TEST2 = " << info.sec_fetch_dest << std::endl;
-   //std::cout << "TEST3 = " << info.url << std::endl;  
-   std::string message;
-   if(info.sec_fetch_dest.find("document") != std::string::npos)
-   {  
-      message = "<head><link rel=\"stylesheet\" href=\"/index.css\"></head><title>Test C++ HTTP Server</title><h1>Test page</h1><p>This is body of the test page...</p><h2>Request headers</h2><pre>" + std::string(buffer) + "</pre>\n<em><small>Test C++ Http Server</small></em>"; 
-   } else if(info.sec_fetch_dest.find("image") != std::string::npos) { 
-       message = _baseitem::readFile("../resorces/favicon.ico");
-   } else if(info.sec_fetch_dest.find("style") != std::string::npos) { 
-       message = _baseitem::readFile("../resorces/index.css");
+   
+   if(info.sec_fetch_dest == "document")
+   {   
+      std::string message = "<head><link rel=\"stylesheet\" href=\"/index.css\"></head><title>Test C++ HTTP Server</title><h1>Test page</h1><p>This is body of the test page...</p><h2>Request headers</h2><pre>" + std::string(buffer) + "</pre>\n<em><small>Test C++ Http Server</small></em><img src=\"/tt/img_chania.jpg\" alt=\"Flowers in Chania\">";  
+      std::string resopnse { _baseitem::createResponse200(message, message.length()) };
+      int resultSend = SSL_write(ssl, resopnse.c_str(), resopnse.length());
+      if (resultSend == -1) 
+      {
+          std::cout << "SocketError2 = " << resultSend <<  std::endl;
+      }
+   } else if(info.sec_fetch_dest == "image") { 
+       readFile(_baseitem::resorcesPath + info.url);
+   } else if(info.sec_fetch_dest == "style") {
+       readFile(_baseitem::resorcesPath + info.url);
+   }
+   closeClient(client_socket);
+}
+//-----------------------------------------------------------------------------
+void TProcess::readFile(std::string filePath)
+{
+   std::cout << "TEST0 = " << filePath << std::endl;  
+   std::ifstream stream(filePath, std::ifstream::ate | std::ifstream::binary);
+   std::string resopnse;
+   if(stream.is_open())
+   {
+      std::string fileText;
+      std::string line;
+      while(std::getline(stream, line)) {
+         fileText += line;
+      }
+      resopnse = _baseitem::createResponse200(fileText, fileText.length());
+   }
+   else
+   {
+      resopnse = _baseitem::createResponse404(); 
    }
    
-   std::string response { _baseitem::createResponse(message) };
-   //int resultSend = send(client_socket, hello.c_str(), hello.length(), 0); 
-   int resultSend = SSL_write(ssl, response.c_str(), response.length());
-   
+   int resultSend = SSL_write(ssl, resopnse.c_str(), resopnse.length());
+   std::cout << "TEST111 = " << resultSend << " length = " << resopnse.length() << std::endl;
    if (resultSend == -1) 
    {
        std::cout << "SocketError2 = " << resultSend <<  std::endl;
-   } 
-   closeClient(client_socket);
+   }
+   
+   stream.close();
 }
 //-----------------------------------------------------------------------------
 void TProcess::start()
@@ -115,7 +139,6 @@ void TProcess::start()
         uint len = sizeof(addr);
         
         int client_socket = accept(sock, (struct sockaddr*)&addr, &len); 
-        std::cout << "TEST1 = " << client_socket << std::endl;
         if (client_socket < 0) 
         { 
             perror("Unable to accept");
@@ -132,7 +155,6 @@ void TProcess::init_openssl()
 { 
     SSL_load_error_strings();	
     OpenSSL_add_ssl_algorithms();
-    
 }
 //-----------------------------------------------------------------------------
 int TProcess::create_socket(int port)
@@ -142,7 +164,7 @@ int TProcess::create_socket(int port)
 
     addr.sin_family = AF_INET;
     addr.sin_port = htons(port);
-    inet_pton(AF_INET, "192.168.1.10", &(addr.sin_addr.s_addr));
+    inet_pton(AF_INET, "192.168.1.200", &(addr.sin_addr.s_addr));
 
     s = socket(AF_INET, SOCK_STREAM, 0);
     if (s < 0) 
@@ -181,7 +203,7 @@ void TProcess::create_context()
     if (!ctx) 
     {
 	   perror("Unable to create SSL context");
-	   ERR_print_errors_fp(stderr);
+	   //ERR_print_errors_fp(stderr);
 	   exit(EXIT_FAILURE);
     }
 }
@@ -193,13 +215,13 @@ void TProcess::configure_context()
     /* Set the key and cert */
     if (SSL_CTX_use_certificate_file(ctx, _baseitem::certPath.c_str(), SSL_FILETYPE_PEM) <= 0) 
     {
-        ERR_print_errors_fp(stderr);
+        //ERR_print_errors_fp(stderr);
 	    exit(EXIT_FAILURE);
     }
 
     if (SSL_CTX_use_PrivateKey_file(ctx, _baseitem::keyPath.c_str(), SSL_FILETYPE_PEM) <= 0 ) 
     {
-        ERR_print_errors_fp(stderr);
+        //ERR_print_errors_fp(stderr);
 	    exit(EXIT_FAILURE);
     }
 }

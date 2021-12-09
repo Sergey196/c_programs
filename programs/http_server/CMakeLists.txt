@@ -22,6 +22,7 @@ include_directories(${HEADERS_DIRECTORY} ${SOURCES_DIRECTORY})
 
 set(FILES
    ${SOURCES_DIRECTORY}/tprocess.cpp
+   ${SOURCES_DIRECTORY}/instruments.cpp
    ${SOURCES_DIRECTORY}/main.cpp
    ${HEADERS_DIRECTORY}/tprocess.h
    ${HEADERS_DIRECTORY}/instruments.h
