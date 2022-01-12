@@ -87,7 +87,7 @@ void TProcess::requestProcess(int client_socket)
    
    if(info.sec_fetch_dest == "document")
    {   
-      std::string message = "<head><link rel=\"stylesheet\" href=\"/index.css\"></head><title>Test C++ HTTP Server</title><h1>Test page</h1><p>This is body of the test page...</p><h2>Request headers</h2><pre>" + std::string(buffer) + "</pre>\n<em><small>Test C++ Http Server</small></em><img src=\"/tt/img_chania.jpg\" alt=\"Flowers in Chania\">";  
+      std::string message = "<head><link rel=\"stylesheet\" href=\"/index.css\"></head><title>Test C++ HTTP Server</title><h1>Test page</h1><p>This is body of the test page...</p><h2>Request headers</h2><pre>" + std::string(buffer) + "</pre>\n<em><small>Test C++ Http Server</small></em><img src=\"/PngItem_80989.png\" alt=\"Flowers in Chania\">";  
       std::string resopnse { _baseitem::createResponse200(message, message.length()) };
       int resultSend = SSL_write(ssl, resopnse.c_str(), resopnse.length());
       if (resultSend == -1) 
@@ -105,16 +105,18 @@ void TProcess::requestProcess(int client_socket)
 void TProcess::readFile(std::string filePath)
 {
    std::cout << "TEST0 = " << filePath << std::endl;  
-   std::ifstream stream(filePath, std::ifstream::ate | std::ifstream::binary);
+   std::ifstream stream(filePath, std::ifstream::binary);
    std::string resopnse;
-   if(stream.is_open())
+   if(!stream.fail())
    {
       std::string fileText;
-      std::string line;
-      while(std::getline(stream, line)) {
-         fileText += line;
+      char bufferArray[512];
+      while(!stream.eof()) {
+         memset(bufferArray, 0, sizeof(bufferArray));
+         stream.read(bufferArray, sizeof(bufferArray));
+         fileText += bufferArray;
       }
-      resopnse = _baseitem::createResponse200(fileText, fileText.length());
+      resopnse = _baseitem::createResponse200(fileText, fileText.length());  
    }
    else
    {
