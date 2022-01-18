@@ -52,11 +52,11 @@ void TLogic::startGame()
    
    field[0][0] = SNAKE;
    direction = RIGHT;
-   //snakeCells = { };
-   while(snakeCells.size() > 0)
+   snakeCells = { };
+   /*while(snakeCells.size() > 0)
    {
       snakeCells.pop(); 
-   }
+   }*/
    snakeCells.push(CellCoordinats { 0, 0 });
    foodRandom(4);
    coutFood = 4;
