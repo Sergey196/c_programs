@@ -9,6 +9,7 @@
 class TController
 {
    public:
+      TController(); 
       ~TController();
       void start();
       void startGame() { logic->startGame(); }

@@ -16,15 +16,15 @@
 
 #include "tgui.h"
 #include "tcontroller.h"
+#include <iostream>
 #include <QGuiApplication>
-#include <QDesktopWidget>
 #include <QScreen>
 #include <QFrame>
-#include <QToolBar>
 #include <QVBoxLayout>
+#include <QToolBar>
+#include <QPaintEvent>
 #include <QPainter>
-#include <QMouseEvent>
-#include <iostream>
+#include <QKeyEvent>
 
 TGui::TGui(TController *_pointOnControler)
 {
@@ -35,25 +35,23 @@ TGui::TGui(TController *_pointOnControler)
     setGeometry(x, y, WIDTH, HEIGHT);
     
     QFrame *mainfr = new QFrame();
-    QFrame *drawfr = new QFrame();
+    QWidget *drawPanel = new QWidget();
     QVBoxLayout *mainLay = new QVBoxLayout(mainfr);
     setCentralWidget(mainfr);
     
     QToolBar* ptb = new QToolBar("Linker ToolBar");
     ptb->addAction("Старт", this, [this]() {
-       startGameFlag = true; 
        pointOnControler->startGame(); 
-       repaint();
     });
     ptb->addAction("Выход", this, [this]() {
        close(); 
     });
     
     mainLay->addWidget(ptb);
-    mainLay->addWidget(drawfr);
+    mainLay->addWidget(drawPanel);
     
     ptb->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
-    drawfr->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+    drawPanel->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 }
 //---------------------------------------------------------------------------
 void TGui::paintEvent(QPaintEvent *)
@@ -62,49 +60,40 @@ void TGui::paintEvent(QPaintEvent *)
    painter.setFont(QFont("times", 18));
    
    auto printField = [&painter](CellInfo info) {
-       if(info.state.value == NONE) {
-          painter.setBrush(Qt::gray);  
-       } else if(info.state.value == MINE_NONE) {
+       if(info.value == FREE) {
           painter.setBrush(Qt::gray);    
-       } else if(info.state.value == FREE) {
+       } else if(info.value == FOOD) {
           painter.setBrush(Qt::white);  
-       } else if(info.state.value == MINE_BOM) {
+       } else if(info.value == SNAKE) {
            painter.setBrush(Qt::red);   
        }
        
-       painter.drawRect((info.x + 2) * FIELD_SIZE, (info.y + 2) * FIELD_SIZE, FIELD_SIZE, FIELD_SIZE);  
-       painter.drawText((info.x + 2) * FIELD_SIZE, (info.y + 2) * FIELD_SIZE, FIELD_SIZE, FIELD_SIZE, Qt::AlignCenter, ((info.state.coutMines > 0) && (info.state.value == FREE)) ? QString::number(info.state.coutMines) : "");
+       painter.drawRect((info.coordinats.x + 2) * FIELD_SIZE, (info.coordinats.y + 2) * FIELD_SIZE, FIELD_SIZE, FIELD_SIZE);  
    };
    
    for(int i = 0; i < COUT_ROWS_COLUMS; i++)
    {
       for(int j = 0; j < COUT_ROWS_COLUMS; j++)
       {
-         printField(CellInfo { i, j, pointOnControler->getCellValue(i, j) });
+         printField(CellInfo { pointOnControler->getCellValue(i, j), CellCoordinats { i, j } });
       }
    }
 }
 //---------------------------------------------------------------------------
-void TGui::mousePressEvent(QMouseEvent* event)
+void TGui::keyPressEvent(QKeyEvent *event)
 {
-   if((event->button() != Qt::RightButton) || !startGameFlag)
-   {
-      return;
-   }
-   
-   QPoint posMouse = event->pos();
-   
-   if(((posMouse.x() >= PANEl_X0) && (posMouse.x() <= PANEl_X1)) && ((posMouse.y() >= PANEl_Y0) && (posMouse.y() <= PANEl_Y1)))
-   {
-      int x = (event->pos().x()/FIELD_SIZE) - 2;
-      int y = (event->pos().y()/FIELD_SIZE) - 2;
-      pointOnControler->selectCell(x, y);
-      repaint();
+   if(event->key() == Qt::Key_Up) {
+      pointOnControler->setDirection(UP); 
+   } else if(event->key() == Qt::Key_Down) {
+      pointOnControler->setDirection(DOWN);  
+   } else if(event->key() == Qt::Key_Right) {
+      pointOnControler->setDirection(RIGHT);  
+   } else if(event->key() == Qt::Key_Left) {
+      pointOnControler->setDirection(LEFT);   
    }
 }
 //---------------------------------------------------------------------------
-void TGui::gameStatus(bool status)
+void TGui::setGameState(bool state)
 {
-   startGameFlag = false; 
-   std::cout << "TEST = " << status << std::endl;
+   std::cout << "TEST = " << state << std::endl; 
 }

@@ -19,7 +19,7 @@
 TController::TController()
 {
    gui = new TGui(this); 
-   logic = new TLogic(this);  
+   logic = new TLogic(this);
 }
 //---------------------------------------------------------------------------
 TController::~TController()
@@ -28,22 +28,7 @@ TController::~TController()
    delete logic;
 }
 //---------------------------------------------------------------------------
-void TController::start()
+void TController::startGui()
 {
    gui->show(); 
-}
-//---------------------------------------------------------------------------
-CellState TController::getCellValue(int x, int y)
-{
-   return logic->getCellValue(x, y); 
-}
-//---------------------------------------------------------------------------
-void TController::selectCell(int x, int y)
-{
-   logic->selectCell(x, y);
-}
-//---------------------------------------------------------------------------
-void TController::gameStatus(bool status)
-{
-   gui->gameStatus(status); 
 }

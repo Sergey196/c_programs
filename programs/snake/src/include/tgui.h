@@ -20,25 +20,25 @@
 #include <QMainWindow>
 #include "tbaseitem.h"
 
+class QFrame;
 class TController;
 
 struct CellInfo
 {
-   int x;
-   int y;
-   CellState state;
+   CellValue value;
+   CellCoordinats coordinats;
 };
 
 class TGui : public QMainWindow
 {
    public:
       TGui(TController *pointOnControler);
-      void gameStatus(bool status);
+      void setGameState(bool state);
    private:
-      void paintEvent(QPaintEvent *) override;
-      void mousePressEvent( QMouseEvent* event) override;  
+      void paintEvent(QPaintEvent *) override;  
+      void keyPressEvent(QKeyEvent *event) override; 
       TController *pointOnControler;
-      bool startGameFlag { false };
 };
+
 
 #endif // TGUI_H
