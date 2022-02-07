@@ -1,0 +1,50 @@
+cmake_minimum_required(VERSION 3.5)
+set (PROJECT_NAME mkio)
+project(${PROJECT_NAME} LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC ON)
+
+find_package(Qt5 REQUIRED Widgets PrintSupport)
+
+file(MAKE_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
+file(MAKE_DIRECTORY ${CMAKE_SOURCE_DIR}/build)
+set(RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin)
+set(HEADERS_DIRECTORY ${CMAKE_SOURCE_DIR}/include)
+set(SOURCES_DIRECTORY ${CMAKE_SOURCE_DIR}/src)
+include_directories(${Qt5Widgets_INCLUDE_DIRS} ${Qt5Core_INCLUDE_DIRS} ${SOURCES_DIRECTORY} ${HEADERS_DIRECTORY})
+
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+
+set(HEADERS
+   ${HEADERS_DIRECTORY}/baseitem.h
+   ${HEADERS_DIRECTORY}/tmainwindow.h
+   ${HEADERS_DIRECTORY}/tcontroller.h
+   ${HEADERS_DIRECTORY}/tlogic.h
+   ${HEADERS_DIRECTORY}/qcustomplot.h
+   ${HEADERS_DIRECTORY}/thexspinbox.h
+   ${HEADERS_DIRECTORY}/tbinaryspinbox.h
+   ${HEADERS_DIRECTORY}/toctalspinbox.h
+   ${HEADERS_DIRECTORY}/tbitepanel.h
+)
+
+set(SOURCES
+   ${SOURCES_DIRECTORY}/main.cpp
+   ${SOURCES_DIRECTORY}/tmainwindow.cpp
+   ${SOURCES_DIRECTORY}/tcontroller.cpp
+   ${SOURCES_DIRECTORY}/tlogic.cpp
+   ${SOURCES_DIRECTORY}/qcustomplot.cpp
+   ${SOURCES_DIRECTORY}/thexspinbox.cpp
+   ${SOURCES_DIRECTORY}/tbinaryspinbox.cpp
+   ${SOURCES_DIRECTORY}/toctalspinbox.cpp
+   ${SOURCES_DIRECTORY}/tbitepanel.cpp
+)
+
+add_executable(${PROJECT_NAME} ${HEADERS} ${SOURCES})
+target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Widgets Qt5::PrintSupport)
+ 
