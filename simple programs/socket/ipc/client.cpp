@@ -22,6 +22,7 @@
 struct  mymsg 
 {
    long  mtype;     /* message type */
+   int alditional;
    char  mtext[1024];  /* message text */
 };
 
@@ -77,7 +78,7 @@ int main(int argc, char const *argv[])
            {  
               mb.mtype = std::stol(id);
               strcpy(mb.mtext, currentMessage.c_str()); 
-             
+              mb.alditional = std::stoi(id);
               if(msgsnd(mq, &mb, sizeof(mymsg), 0) == -1) 
               {
                  perror("msgsnd()");
@@ -88,7 +89,7 @@ int main(int argc, char const *argv[])
         
         if (msgrcv(mq, &mb, sizeof(mymsg), node_address, IPC_NOWAIT) >= 0)
 		{
-           printf("%s\n", mb.mtext); 
+           printf("%s , %d\n", mb.mtext, mb.alditional); 
         }
     }
     

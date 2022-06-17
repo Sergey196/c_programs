@@ -6,6 +6,7 @@
 
 struct stat mountpoint;
 struct stat parent;
+
 int main()
 {
    /* Get the stat structure of the directory...*/
@@ -31,4 +32,4 @@ int main()
        printf("Yes, there is currently a filesystem mounted.\n");
    }
    return 0;
-}
+} 
