@@ -40,7 +40,7 @@ int main() {
   
     while(true)
     {
-       recvfrom(sockfd, buffer, 1024, MSG_DONTWAIT, ( struct sockaddr *) &cliaddr, (socklen_t*)&len); 
+       recvfrom(sockfd, buffer, 1024, MSG_WAITALL, ( struct sockaddr *) &cliaddr, (socklen_t*)&len); 
        std::cout << "TEST = " << buffer << std::endl;
        sendto(sockfd, (const char *)hello, strlen(hello),  MSG_CONFIRM, (const struct sockaddr *) &cliaddr, len); 
        memset(buffer, 0, sizeof(buffer));

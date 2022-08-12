@@ -33,7 +33,7 @@ int main() {
     {
        sendto(sockfd, (const char *)hello, strlen(hello), MSG_CONFIRM, (const struct sockaddr *) &servaddr,  sizeof(servaddr)); 
           
-       recvfrom(sockfd, (char *)buffer, 1024,  MSG_DONTWAIT, (struct sockaddr *) &servaddr, (socklen_t*)&len); 
+       recvfrom(sockfd, (char *)buffer, 1024,  MSG_WAITALL, (struct sockaddr *) &servaddr, (socklen_t*)&len); 
        
        std::cout << "TEST = " << buffer << std::endl;
        memset(buffer, 0, sizeof(buffer));
