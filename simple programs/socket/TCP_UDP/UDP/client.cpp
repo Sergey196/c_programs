@@ -19,6 +19,22 @@ int main() {
         perror("socket creation failed"); 
         exit(EXIT_FAILURE); 
     } 
+    
+    //////////////////////
+    timeval timeout;
+    timeout.tv_sec = 0;
+    timeout.tv_usec = 100;
+    
+    if (setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout)))
+    {
+        return 0;
+    }
+    
+    if (setsockopt(sockfd, SOL_SOCKET, SO_SNDTIMEO, &timeout, sizeof(timeout)))
+    {
+        return 0;
+    }
+    //////////////////////
   
     memset(&servaddr, 0, sizeof(servaddr)); 
       
@@ -31,13 +47,13 @@ int main() {
       
     while(true)
     {
-       sendto(sockfd, (const char *)hello, strlen(hello), MSG_CONFIRM, (const struct sockaddr *) &servaddr,  sizeof(servaddr)); 
-          
-       recvfrom(sockfd, (char *)buffer, 1024,  MSG_WAITALL, (struct sockaddr *) &servaddr, (socklen_t*)&len); 
-       
+       int result = sendto(sockfd, (const char *)hello, strlen(hello), MSG_CONFIRM, (const struct sockaddr *) &servaddr,  sizeof(servaddr)); 
+       std::cout << "TEST1 = " << result << std::endl;  
+       result = recvfrom(sockfd, (char *)buffer, 1024,  MSG_WAITALL, (struct sockaddr *) &servaddr, (socklen_t*)&len); 
+       std::cout << "TEST1 = " << result << std::endl;
        std::cout << "TEST = " << buffer << std::endl;
        memset(buffer, 0, sizeof(buffer));
-       sleep(1); 
+       usleep(100000); 
     }
   
     close(sockfd); 

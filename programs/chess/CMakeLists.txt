@@ -1,0 +1,38 @@
+cmake_minimum_required(VERSION 3.11)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC ON)
+
+find_package(Qt5 COMPONENTS Widgets REQUIRED)
+
+file(MAKE_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
+file(MAKE_DIRECTORY ${CMAKE_SOURCE_DIR}/build)
+set(RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin)
+set(HEADERS_DIRECTORY ${CMAKE_SOURCE_DIR}/include)
+set(SOURCES_DIRECTORY ${CMAKE_SOURCE_DIR}/src)
+include_directories(${HEADERS_DIRECTORY} ${SOURCES_DIRECTORY} ${Qt5Widgets_INCLUDE_DIRS} ${Qt5Core_INCLUDE_DIRS} )
+
+set(HEADERS
+   ${HEADERS_DIRECTORY}/baseitem.h
+   ${HEADERS_DIRECTORY}/logic.h
+   ${HEADERS_DIRECTORY}/gui.h
+   ${HEADERS_DIRECTORY}/controler.h
+)
+
+set(SOURCES
+   ${SOURCES_DIRECTORY}/main.cpp
+   ${SOURCES_DIRECTORY}/logic.cpp
+   ${SOURCES_DIRECTORY}/gui.cpp
+   ${SOURCES_DIRECTORY}/controler.cpp
+)
+
+add_executable(${PROJECT_NAME} ${HEADERS} ${SOURCES})
+
+# линкуем библиотеки к проекту
+target_link_libraries(${PROJECT_NAME} Qt5::Widgets)
+
