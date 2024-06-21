@@ -5,13 +5,12 @@
 #include <stdlib.h> 
 #include <netinet/in.h> 
 #include <string.h> 
-
-#include <thread>
+#include <iostream> 
 #include <algorithm>
 
 int main(int argc, char const *argv[]) 
 { 
-    int server_fd, new_socket, valread; 
+    int server_fd, new_socket; 
     struct sockaddr_in address; 
     int opt = 1; 
     int addrlen = sizeof(address); 
@@ -25,7 +24,7 @@ int main(int argc, char const *argv[])
         exit(EXIT_FAILURE); 
     } 
     
-    struct sockaddr saddr = {AF_UNIX, "serverMy"};
+    struct sockaddr saddr = {AF_UNIX, "/opt/ttyMy"};
        
     if (bind(server_fd, &saddr, sizeof(saddr))) 
     { 
@@ -39,6 +38,7 @@ int main(int argc, char const *argv[])
         perror("listen"); 
         exit(EXIT_FAILURE); 
     } 
+    
     if ((new_socket = accept(server_fd, (struct sockaddr *)&address,  
                        (socklen_t*)&addrlen))<0) 
     { 
@@ -46,29 +46,18 @@ int main(int argc, char const *argv[])
         exit(EXIT_FAILURE); 
     } 
     
-    
-    std::thread sendMy([&](){
-       while(true)
-       {
-          std::string hello = "Hello from server\n"; 
-          send(new_socket , hello.c_str() , hello.length() , 0 ); 
-          sleep(1);
-       }
-    });
-    
-    std::thread readMy([&](){
-       while(true)
-       {
-          valread = read(new_socket , buffer, 1024); 
-          printf("%s\n",buffer ); 
-          sleep(1);
-       }
-    });
-    
-    while(true)
+    for(int i = 0; i < 20; i++)
     {
-        
+       std::string hello = "Hello from server"; 
+       send(new_socket, hello.c_str() , hello.length(), 0); 
+       read(new_socket, buffer, 1024); 
+       printf("%s\n",buffer);
+       sleep(1);
     }
+    
+    sleep(5);
+    
+    close(server_fd);
     
     //valread = read( new_socket , buffer, 1024); 
     //printf("%s\n",buffer ); 

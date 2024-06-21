@@ -31,7 +31,7 @@ public:
 private:
    void searchOtherFreeFields(int x, int y);
    int getCoutMinesAroundField(int x, int y);
-   CellValue fields[FIELD_SIZE][FIELD_SIZE] { { NONE } };
+   CellState fields[FIELD_SIZE][FIELD_SIZE];
    int freeField { 100 };
    TController *pointOnControler;
 };

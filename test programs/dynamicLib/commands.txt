@@ -1,0 +1,2 @@
+gcc -shared -o lib.so -fPIC lib_test.c
+g++ -o main main.c 

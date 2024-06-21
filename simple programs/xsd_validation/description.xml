@@ -1,0 +1,705 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<description>  
+   <pci_1002lu>
+      <pci_1002lu_description used="1"> 
+            <adc used="1">
+               <channel>0</channel> 
+               <channel_name>C1_1_0</channel_name> 
+               <divider>1.0</divider>    
+               <minValue>0</minValue> 
+               <maxValue>+12.0</maxValue>  
+               <input_mode>1</input_mode>
+               <input_range>0</input_range> 
+            </adc>
+            <adc used="0">
+               <channel>1</channel>
+               <channel_name>C1_1_1</channel_name>
+               <divider>1.0</divider>
+               <minValue>0</minValue>
+               <maxValue>+12.0</maxValue>
+               <input_mode>1</input_mode>
+               <input_range>1</input_range>
+            </adc>
+            <adc used="1">
+               <channel>2</channel>
+               <channel_name>C1_1_2</channel_name>
+               <divider>1.0</divider>
+               <minValue>0</minValue>
+               <maxValue>+12.0</maxValue>
+               <input_mode>1</input_mode> 
+               <input_range>0</input_range> 
+            </adc>  
+            <adc used="0">
+               <channel>3</channel>
+               <channel_name>C1_1_3</channel_name>
+               <divider>1.0</divider>
+               <minValue>0</minValue>
+               <maxValue>+12.0</maxValue>
+               <input_mode>1</input_mode> 
+               <input_range>0</input_range> 
+            </adc>  
+            <adc used="1">
+               <channel>4</channel>
+               <channel_name>NOTUSED</channel_name>
+               <divider>1.0</divider>
+               <minValue>0</minValue>
+               <maxValue>+12.0</maxValue>
+               <input_mode>1</input_mode> 
+               <input_range>0</input_range> 
+            </adc>  
+            <adc used="0">
+               <channel>5</channel>
+               <channel_name>NOTUSED</channel_name>
+               <divider>1.0</divider>
+               <minValue>0</minValue>
+               <maxValue>+12.0</maxValue>
+               <input_mode>1</input_mode> 
+               <input_range>0</input_range> 
+            </adc>  
+            <adc used="1">
+               <channel>6</channel>
+               <channel_name>C004</channel_name>
+               <divider>1.0</divider>
+               <minValue>0</minValue>
+               <maxValue>+12.0</maxValue>
+               <input_mode>1</input_mode> 
+               <input_range>0</input_range> 
+            </adc>  
+            
+            <adc used="0">
+               <channel>7</channel>
+               <channel_name>NOTUSED</channel_name>
+               <divider>1.0</divider>
+               <minValue>0</minValue>
+               <maxValue>+12.0</maxValue>
+               <input_mode>1</input_mode> 
+               <input_range>0</input_range> 
+            </adc>  
+            <adc used="1">
+               <channel>8</channel>
+               <channel_name>NOTUSED</channel_name>
+               <divider>1.0</divider>
+               <minValue>0</minValue>
+               <maxValue>+12.0</maxValue>
+               <input_mode>1</input_mode> 
+               <input_range>0</input_range> 
+            </adc>  
+            <adc used="0">
+               <channel>9</channel>
+               <channel_name>NOTUSED</channel_name>
+               <divider>1.0</divider>
+               <minValue>0</minValue>
+               <maxValue>+12.0</maxValue>
+               <input_mode>1</input_mode> 
+               <input_range>0</input_range> 
+            </adc>  
+            <adc used="1">
+               <channel>10</channel>
+               <channel_name>NOTUSED</channel_name>
+               <divider>1.0</divider>
+               <minValue>0</minValue>
+               <maxValue>+12.0</maxValue>
+               <input_mode>1</input_mode> 
+               <input_range>0</input_range> 
+            </adc>  
+            <adc used="0">
+               <channel>11</channel>
+               <channel_name>NOTUSED</channel_name>
+               <divider>1.0</divider>
+               <minValue>0</minValue>
+               <maxValue>+12.0</maxValue>
+               <input_mode>1</input_mode> 
+               <input_range>0</input_range> 
+            </adc>  
+            <adc used="1">
+               <channel>12</channel>
+               <channel_name>NOTUSED</channel_name>
+               <divider>1.0</divider>
+               <minValue>0</minValue>
+               <maxValue>+12.0</maxValue>
+               <input_mode>1</input_mode> 
+               <input_range>0</input_range> 
+            </adc>  
+            <adc used="0">
+               <channel>13</channel>
+               <channel_name>NOTUSED</channel_name>
+               <divider>1.0</divider>
+               <minValue>0</minValue>
+               <maxValue>+12.0</maxValue>
+               <input_mode>1</input_mode> 
+               <input_range>0</input_range> 
+            </adc>  
+            <adc used="1">
+               <channel>14</channel>
+               <channel_name>NOTUSED</channel_name>
+               <divider>1.0</divider>
+               <minValue>0</minValue>
+               <maxValue>+12.0</maxValue>
+               <input_mode>1</input_mode> 
+               <input_range>0</input_range> 
+            </adc>  
+            <adc used="0">
+               <channel>15</channel>
+               <channel_name>NOTUSED</channel_name>
+               <divider>1.0</divider>
+               <minValue>0</minValue>
+               <maxValue>+12.0</maxValue>
+               <input_mode>1</input_mode> 
+               <input_range>0</input_range> 
+            </adc>  
+            <adc used="1">
+               <channel>16</channel>
+               <channel_name>C1_1_16</channel_name>
+               <divider>0.083</divider>
+               <minValue>0</minValue>
+               <maxValue>+12.0</maxValue>
+               <input_mode>1</input_mode> 
+               <input_range>0</input_range> 
+            </adc>  
+            <adc used="0">
+               <channel>17</channel>
+               <channel_name>C1_1_17</channel_name>
+               <divider>1.0</divider>
+               <minValue>0</minValue>
+               <maxValue>+12.0</maxValue>
+               <input_mode>1</input_mode> 
+               <input_range>0</input_range> 
+            </adc>  
+            <adc used="1">
+               <channel>18</channel>
+               <channel_name>NOTUSED</channel_name>
+               <divider>1.0</divider>
+               <minValue>0</minValue>
+               <maxValue>+12.0</maxValue>
+               <input_mode>1</input_mode> 
+               <input_range>0</input_range> 
+            </adc>  
+            <adc used="0">
+               <channel>19</channel>
+               <channel_name>NOTUSED</channel_name>
+               <divider>1.0</divider>
+               <minValue>0</minValue>
+               <maxValue>+12.0</maxValue>
+               <input_mode>1</input_mode> 
+               <input_range>0</input_range> 
+            </adc>  
+            <adc used="1">
+               <channel>20</channel>
+               <channel_name>NOTUSED</channel_name>
+               <divider>1.0</divider>
+               <minValue>0</minValue>
+               <maxValue>+12.0</maxValue>
+               <input_mode>1</input_mode> 
+               <input_range>0</input_range> 
+            </adc>  
+            <adc used="0">
+               <channel>21</channel>
+               <channel_name>NOTUSED</channel_name>
+               <divider>1.0</divider>
+               <minValue>0</minValue>
+               <maxValue>+12.0</maxValue>
+               <input_mode>1</input_mode> 
+               <input_range>0</input_range> 
+            </adc>  
+            <adc used="1">
+               <channel>22</channel> 
+               <channel_name>NOTUSED</channel_name>
+               <divider>1.0</divider>
+               <minValue>0</minValue>
+               <maxValue>+12.0</maxValue>
+               <input_mode>1</input_mode> 
+               <input_range>0</input_range> 
+            </adc>  
+            <adc used="0">
+               <channel>23</channel>
+               <channel_name>NOTUSED</channel_name>
+               <divider>1.0</divider>
+               <minValue>0</minValue>
+               <maxValue>+12.0</maxValue>
+               <input_mode>1</input_mode> 
+               <input_range>0</input_range> 
+            </adc>  
+            <adc used="1">
+               <channel>24</channel>
+               <channel_name>NOTUSED</channel_name>
+               <divider>1.0</divider>
+               <minValue>0</minValue>
+               <maxValue>+12.0</maxValue>
+               <input_mode>1</input_mode> 
+               <input_range>0</input_range> 
+            </adc>  
+            <adc used="0">
+               <channel>25</channel>
+               <channel_name>NOTUSED</channel_name>
+               <divider>1.0</divider>
+               <minValue>0</minValue>
+               <maxValue>+12.0</maxValue>
+               <input_mode>1</input_mode> 
+               <input_range>0</input_range> 
+            </adc>  
+            <adc used="1">
+               <channel>26</channel>
+               <channel_name>NOTUSED</channel_name>
+               <divider>1.0</divider>
+               <minValue>0</minValue>
+               <maxValue>+12.0</maxValue>
+               <input_mode>1</input_mode> 
+               <input_range>0</input_range> 
+            </adc>  
+            <adc used="0">
+               <channel>27</channel>
+               <channel_name>NOTUSED</channel_name>
+               <divider>1.0</divider>
+               <minValue>0</minValue>
+               <maxValue>+12.0</maxValue>
+               <input_mode>1</input_mode> 
+               <input_range>0</input_range> 
+            </adc>  
+            <adc used="1">
+               <channel>28</channel>
+               <channel_name>NOTUSED</channel_name>
+               <divider>1.0</divider>
+               <minValue>0</minValue>
+               <maxValue>+12.0</maxValue>
+               <input_mode>1</input_mode> 
+               <input_range>0</input_range> 
+            </adc>  
+            <adc used="0">
+               <channel>29</channel>
+               <channel_name>NOTUSED</channel_name>
+               <divider>1.0</divider>
+               <minValue>0</minValue>
+               <maxValue>+12.0</maxValue>
+               <input_mode>1</input_mode> 
+               <input_range>0</input_range> 
+            </adc>  
+            <adc used="1">
+               <channel>30</channel>
+               <channel_name>C1_1_30</channel_name>
+               <divider>1.0</divider>
+               <minValue>0</minValue>
+               <maxValue>+12.0</maxValue>
+               <input_mode>1</input_mode> 
+               <input_range>0</input_range> 
+            </adc>  
+            <adc used="0">
+               <channel>31</channel>
+               <channel_name>C1_1_31</channel_name>
+               <divider>1.0</divider>
+               <minValue>0</minValue>
+               <maxValue>+12.0</maxValue>
+               <input_mode>1</input_mode> 
+               <input_range>0</input_range> 
+            </adc>
+      </pci_1002lu_description>
+   </pci_1002lu>
+   <dd64>
+	  <dd64_description used="1">
+	      <dd64_adc>   
+		     <adc used="1">
+		 	    <channel>0</channel> 
+		 	    <channel_name>NOTUSED</channel_name>
+		 	    <divider>1.0</divider>
+		 	    <minValue>-10.0</minValue>
+		 	    <maxValue>+10.0</maxValue>
+		 	    <input_mode>0</input_mode>
+		 	    <input_range>0</input_range>          
+		    </adc>
+		    <adc used="1">
+		 	   <channel>1</channel> 
+		 	   <channel_name>K041</channel_name>
+		 	   <divider>1.0</divider>
+		 	   <minValue>-1.0</minValue>
+		 	   <maxValue>+30.0</maxValue>      
+		 	   <input_mode>0</input_mode>
+		 	   <input_range>0</input_range>
+		    </adc>
+		    <adc used="1">
+		 	   <channel>2</channel> 
+		 	   <channel_name>K059</channel_name>
+		 	   <divider>1.0</divider>
+		 	   <minValue>-1.0</minValue>
+		 	   <maxValue>+30.0</maxValue>
+		 	   <input_mode>0</input_mode>
+		 	   <input_range>0</input_range>   
+		    </adc>
+		    <adc used="1">
+		 	   <channel>3</channel> 
+		 	   <channel_name>K057</channel_name>
+		 	   <divider>1.0</divider>
+		 	   <minValue>-1.0</minValue>
+		 	   <maxValue>+30.0</maxValue>
+		 	   <input_mode>0</input_mode>
+		 	   <input_range>0</input_range>
+		    </adc>
+		    <adc used="1">
+		 	   <channel>4</channel> 
+		 	   <channel_name>NOTUSED</channel_name>
+		 	   <divider>0.25</divider>
+		 	   <minValue>-10.0</minValue>
+		 	   <maxValue>+10.0</maxValue>
+		 	   <input_mode>0</input_mode>
+		 	   <input_range>0</input_range>   
+		    </adc>
+		    <adc used="1">
+		 	   <channel>5</channel> 
+		 	   <channel_name>NOTUSED</channel_name>
+		 	   <divider>1.0</divider>
+		 	   <minValue>-10.0</minValue>
+		 	   <maxValue>+10.0</maxValue>
+		 	   <input_mode>0</input_mode>
+		 	   <input_range>0</input_range>
+		    </adc>
+		    <adc used="1">
+		 	   <channel>6</channel> 
+		 	   <channel_name>NOTUSED</channel_name>
+		 	   <divider>1.0</divider>
+		 	   <minValue>-10.0</minValue>
+		 	   <maxValue>+10.0</maxValue>
+		 	   <input_mode>0</input_mode>
+		 	   <input_range>0</input_range>   
+		    </adc>
+		    <adc used="1">
+		 	   <channel>7</channel> 
+		 	   <channel_name>NOTUSED</channel_name>
+		 	   <divider>1.0</divider>
+		 	   <minValue>-10.0</minValue>
+		 	   <maxValue>+10.0</maxValue>
+		 	   <input_mode>0</input_mode>
+		       <input_range>0</input_range>
+		    </adc>   
+		     <adc used="1">
+		 	    <channel>8</channel> 
+		 	    <channel_name>NOTUSED</channel_name>
+		 	    <divider>1.0</divider>
+		 	    <minValue>-10.0</minValue>
+		 	    <maxValue>+10.0</maxValue>
+		 	    <input_mode>0</input_mode>
+		 	    <input_range>0</input_range>          
+		    </adc>
+		    <adc used="1">
+		 	   <channel>9</channel> 
+		 	   <channel_name>K041</channel_name>
+		 	   <divider>1.0</divider>
+		 	   <minValue>-1.0</minValue>
+		 	   <maxValue>+30.0</maxValue>      
+		 	   <input_mode>0</input_mode>
+		 	   <input_range>0</input_range>
+		    </adc>
+		    <adc used="1">
+		 	   <channel>10</channel> 
+		 	   <channel_name>K059</channel_name>
+		 	   <divider>1.0</divider>
+		 	   <minValue>-1.0</minValue>
+		 	   <maxValue>+30.0</maxValue>
+		 	   <input_mode>0</input_mode>
+		 	   <input_range>0</input_range>   
+		    </adc>
+		    <adc used="1">
+		 	   <channel>11</channel> 
+		 	   <channel_name>K057</channel_name>
+		 	   <divider>1.0</divider>
+		 	   <minValue>-1.0</minValue>
+		 	   <maxValue>+30.0</maxValue>
+		 	   <input_mode>0</input_mode>
+		 	   <input_range>0</input_range>
+		    </adc>
+		    <adc used="1">
+		 	   <channel>12</channel> 
+		 	   <channel_name>NOTUSED</channel_name>
+		 	   <divider>0.25</divider>
+		 	   <minValue>-10.0</minValue>
+		 	   <maxValue>+10.0</maxValue>
+		 	   <input_mode>0</input_mode>
+		 	   <input_range>0</input_range>   
+		    </adc>
+		    <adc used="1">
+		 	   <channel>13</channel> 
+		 	   <channel_name>NOTUSED</channel_name>
+		 	   <divider>1.0</divider>
+		 	   <minValue>-10.0</minValue>
+		 	   <maxValue>+10.0</maxValue>
+		 	   <input_mode>0</input_mode>
+		 	   <input_range>0</input_range>
+		    </adc>
+		    <adc used="1">
+		 	   <channel>14</channel> 
+		 	   <channel_name>NOTUSED</channel_name>
+		 	   <divider>1.0</divider>
+		 	   <minValue>-10.0</minValue>
+		 	   <maxValue>+10.0</maxValue>
+		 	   <input_mode>0</input_mode>
+		 	   <input_range>0</input_range>   
+		    </adc>
+		    <adc used="1">
+		 	   <channel>15</channel> 
+		 	   <channel_name>NOTUSED</channel_name>
+		 	   <divider>1.0</divider>
+		 	   <minValue>-10.0</minValue>
+		 	   <maxValue>+10.0</maxValue>
+		 	   <input_mode>0</input_mode>
+		       <input_range>0</input_range>
+		    </adc>  
+        </dd64_adc>
+	       <dd64_io>
+			 <io used="1">
+			   <channel>0</channel>    
+			   <channel_name>C037</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>1</channel>    
+			   <channel_name>K049</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>2</channel>    
+			   <channel_name>K050</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>3</channel>    
+			   <channel_name>K042</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>4</channel>    
+			   <channel_name>K048</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>5</channel>    
+			   <channel_name>NOTUSED</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>6</channel>    
+			   <channel_name>NOTUSED</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>7</channel>    
+			   <channel_name>NOTUSED</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>8</channel>    
+			   <channel_name>NOTUSED</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>9</channel>    
+			   <channel_name>NOTUSED</channel_name>
+			 </io>
+
+			  <io used="1">
+			   <channel>10</channel>    
+			   <channel_name>NOTUSED</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>11</channel>    
+			   <channel_name>NOTUSED</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>12</channel>    
+			   <channel_name>NOTUSED</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>13</channel>    
+			   <channel_name>NOTUSED</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>14</channel>    
+			   <channel_name>NOTUSED</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>15</channel>    
+			   <channel_name>NOTUSED</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>16</channel>    
+			   <channel_name> NOTUSED </channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>17</channel>    
+			   <channel_name>NOTUSED</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>18</channel>    
+			   <channel_name>NOTUSED</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>19</channel>    
+			   <channel_name>NOTUSED</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>20</channel>    
+			   <channel_name>NOTUSED</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>21</channel>    
+			   <channel_name>NOTUSED</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>22</channel>    
+			   <channel_name>NOTUSED</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>23</channel>    
+			   <channel_name>NOTUSED</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>24</channel>    
+			   <channel_name>NOTUSED</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>25</channel>    
+			   <channel_name>NOTUSED</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>26</channel>    
+			   <channel_name>NOTUSED</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>27</channel>    
+			   <channel_name> NOTUSED </channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>28</channel>    
+			   <channel_name> NOTUSED </channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>29</channel>    
+			   <channel_name>NOTUSED</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>30</channel>    
+			   <channel_name>NOTUSED</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>31</channel>    
+			   <channel_name>NOTUSED</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>32</channel>    
+			   <channel_name>C013</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>33</channel>    
+			   <channel_name>C014</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>34</channel>    
+			   <channel_name>C015</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>35</channel>    
+			   <channel_name>C022</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>36</channel>    
+			   <channel_name>C023</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>37</channel>    
+			   <channel_name>C036</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>38</channel>    
+			   <channel_name>C038</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>39</channel>    
+			   <channel_name>K023</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>40</channel>    
+			   <channel_name>K030</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>41</channel>    
+			   <channel_name>K031</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>42</channel>    
+			   <channel_name>K028</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>43</channel>    
+			   <channel_name>K034</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>44</channel>    
+			   <channel_name>K053</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>45</channel>    
+			   <channel_name>K054</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>46</channel>    
+			   <channel_name>K055</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>47</channel>    
+			   <channel_name>K056</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>48</channel>    
+			   <channel_name>C027</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>49</channel>    
+			   <channel_name>K047</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>50</channel>    
+			   <channel_name>K033-01</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>51</channel>    
+			   <channel_name>NOTUSED</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>52</channel>    
+			   <channel_name>NOTUSED</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>53</channel>    
+			   <channel_name>NOTUSED</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>54</channel>    
+			   <channel_name>NOTUSED</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>55</channel>    
+			   <channel_name>NOTUSED</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>56</channel>    
+			   <channel_name>NOTUSED</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>57</channel>    
+			   <channel_name>NOTUSED</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>58</channel>    
+			   <channel_name>NOTUSED</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>59</channel>    
+			   <channel_name>NOTUSED</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>60</channel>    
+			   <channel_name>NOTUSED</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>61</channel>    
+			   <channel_name>NOTUSED</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>62</channel>    
+			   <channel_name>NOTUSED</channel_name>
+			 </io>
+			 <io used="1">
+			   <channel>63</channel>    
+			   <channel_name>NOTUSED</channel_name>
+			 </io>
+	      </dd64_io>
+	   </dd64_description>
+   </dd64>
+</description>

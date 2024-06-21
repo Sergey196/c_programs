@@ -1,0 +1,80 @@
+#!/bin/bash
+
+PROGRAM_NAME=runner
+APPDIR=$(dirname $(readlink -f "${0}"))
+
+
+if [ "$1" == "-d" ]
+then
+    logfile=~/vna-portable.log
+
+    date | tee $logfile
+
+    echo "AppImage-bundle commit id:" | tee -a $logfile
+    cat $APPDIR/commitid | tee -a $logfile
+
+    echo "$ uname -a" | tee -a $logfile
+    uname -a | tee -a $logfile
+
+    echo "$ lsb_release -a" | tee -a $logfile
+    lsb_release -a | tee -a $logfile
+
+    echo "$ cat /etc/*version" | tee -a $logfile
+    cat /etc/*version | tee -a $logfile
+
+    echo "$ cat /etc/*release" | tee -a $logfile
+    cat /etc/*release | tee -a $logfile
+
+    echo "$ lsusb -v" | tee -a $logfile
+    lsusb -v | tee -a $logfile
+
+    echo "$ lsmod" | tee -a $logfile
+    lsmod | tee -a $logfile
+
+    echo "$ ls -laR $APPDIR" | tee -a $logfile
+    ls -laR $APPDIR | tee -a $logfile
+fi
+
+if [ -f "/etc/udev/rules.d/vna-portable.rules" ]
+then
+    echo ""
+else
+    echo "For working with VNA devices through USB"
+    echo "we need to add permision in /etc/udev/rules.d/vna-portable.rules"
+    echo ""
+    echo "Proceed or cancel for manual adding"
+    echo "/etc/udev/rules.d/vna-portable.rules consist"
+    echo "    SUBSYSTEM==\"usb\",        ATTRS{idVendor}==\"2226\", MODE=\"0666\""
+    echo "    SUBSYSTEM==\"usb_device\", ATTRS{idVendor}==\"2226\", MODE=\"0666\""    
+    echo ""
+    echo "and then reload udev"
+    echo "    udev control --reload-rules && udevadm trigger"
+    cp ${APPDIR}/vna-portable.install /tmp/vna-portable.install
+    /tmp/vna-portable.install
+    rm /tmp/vna-portable.install
+fi
+
+#serverPid=`ps -elf | grep ./UTPServer  | grep -v grep | awk '{print $4}'`
+serverPid=`pidof ./UTPServer`
+
+if [ "x$serverPid" == "x" ]; then
+    CWD=`pwd`
+    tmp_dir="/tmp/UTPServer"
+    mkdir -p $tmp_dir 2>&1 >/dev/null
+    rm -rf $tmp_dir/*
+    cp -Rf ${APPDIR}/opt/vna/utpserver/* $tmp_dir 2>&1 >/dev/null
+    cd $tmp_dir
+    env LD_LIBRARY_PATH=./ ./UTPServer  2>&1 >/dev/null &
+    cd $CWD
+fi
+
+
+exec env PATH=${APPDIR}/opt/wine/bin:${PATH} \
+LD_LIBRARY_PATH=${APPDIR}/opt/wine/lib:${LD_LIBRARY_PATH}  \
+WINEPREFIX="${HOME}/.vna-portable" WINESERVER=${APPDIR}/opt/wine/bin/wineserver \
+WINELOADER=${APPDIR}/opt/wine/bin/wine \
+WINEDLLPATH=${APPDIR}/opt/wine/lib:${APPDIR}/opt/wine/lib/wine \
+WINEDLLOVERRIDES="mscoree,mshtml=" \
+LANG=ru_RU.UTF-8 \
+wine ${APPDIR}/opt/vna/${PROGRAM_NAME}.exe $@
+

@@ -1,0 +1,12 @@
+Package: testPackage 
+Version: 1.0
+Architecture: amd64
+Maintainer: Sindastra <noreply@localhost>
+Installed-Size: 20
+Description: testPackage
+Source: my-game
+Section: devel
+Priority: optional
+Standards-Version: 3.9.3
+Homepage: http://www.gnu.org/software/hello/
+Pre-Depends: minicom

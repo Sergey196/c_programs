@@ -12,10 +12,10 @@ class TController
       TController(); 
       ~TController();
       void startGui();
-      CellValue getCellValue(int x, int y) { return logic->getCellValue(x, y); }
+      int getCellValue(int x, int y) { return logic->getCellValue(x, y); }
       void startGame() { logic->startGame(); }
       void setGameState(bool state) { gui->setGameState(state); }
-      void repaint() { gui->repaint(); }
+      void keyPress(int key) { logic->keyPress(key); }
    private:
       TGui *gui;
       TLogic *logic;

@@ -1,0 +1,7 @@
+#!/usr/bin/sudo bash
+
+echo "SUBSYSTEM==\"usb\", ATTRS{idVendor}==\"2226\", MODE=\"0666\"" >> /etc/udev/rules.d/vna-portable.rules
+echo "SUBSYSTEM==\"usb_device\", ATTRS{idVendor}==\"2226\", MODE=\"0666\"" >> /etc/udev/rules.d/vna-portable.rules
+echo "SUBSYSTEM==\"usb\", ATTRS{idVendor}==\"0547\", MODE=\"0666\"" >> /etc/udev/rules.d/vna-portable.rules
+echo "SUBSYSTEM==\"usb_device\", ATTRS{idVendor}==\"0547\", MODE=\"0666\"" >> /etc/udev/rules.d/vna-portable.rules
+udevadm control --reload-rules && udevadm trigger

@@ -13,16 +13,17 @@ const int PANEl_Y1  { 360 };
 
 enum CellValue
 {
-   NONE,
-   MINE_NONE,
    FREE,
+   SELECT,
+   MINE,
    MINE_BOM
 };
 
 struct CellState
 {
-   CellValue value { NONE };
+   CellValue value { FREE };
    int coutMines { 0 };
+   bool isCheck { false };
 };
 
 #endif

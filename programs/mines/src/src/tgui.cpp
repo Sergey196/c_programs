@@ -61,19 +61,27 @@ void TGui::paintEvent(QPaintEvent *)
    QPainter painter(this);
    painter.setFont(QFont("times", 18));
    
-   auto printField = [&painter](CellInfo info) {
-       if(info.state.value == NONE) {
-          painter.setBrush(Qt::gray);  
-       } else if(info.state.value == MINE_NONE) {
-          painter.setBrush(Qt::gray);    
-       } else if(info.state.value == FREE) {
-          painter.setBrush(Qt::white);  
-       } else if(info.state.value == MINE_BOM) {
-           painter.setBrush(Qt::red);   
+   auto printField = [this, &painter](CellInfo info) {
+       if(startGameFlag) {
+          if(info.state.value == SELECT) {
+             painter.setBrush(Qt::gray);    
+          } else {
+             painter.setBrush(Qt::white);  
+          }
+       } else {
+          if(info.state.value == MINE_BOM) {
+             painter.setBrush(Qt::darkRed);  
+          } else if(info.state.value == MINE) {
+             painter.setBrush(Qt::red);    
+          }  else if(info.state.value == SELECT) {
+             painter.setBrush(Qt::gray);    
+          } else {
+             painter.setBrush(Qt::darkCyan);  
+          }
        }
        
        painter.drawRect((info.x + 2) * FIELD_SIZE, (info.y + 2) * FIELD_SIZE, FIELD_SIZE, FIELD_SIZE);  
-       painter.drawText((info.x + 2) * FIELD_SIZE, (info.y + 2) * FIELD_SIZE, FIELD_SIZE, FIELD_SIZE, Qt::AlignCenter, ((info.state.coutMines > 0) && (info.state.value == FREE)) ? QString::number(info.state.coutMines) : "");
+       painter.drawText((info.x + 2) * FIELD_SIZE, (info.y + 2) * FIELD_SIZE, FIELD_SIZE, FIELD_SIZE, Qt::AlignCenter, ((info.state.coutMines > 0) && (info.state.value == SELECT)) ? QString::number(info.state.coutMines) : "");
    };
    
    for(int i = 0; i < COUT_ROWS_COLUMS; i++)
@@ -103,8 +111,7 @@ void TGui::mousePressEvent(QMouseEvent* event)
    }
 }
 //---------------------------------------------------------------------------
-void TGui::gameStatus(bool status)
+void TGui::stopGame()
 {
    startGameFlag = false; 
-   std::cout << "TEST = " << status << std::endl;
 }

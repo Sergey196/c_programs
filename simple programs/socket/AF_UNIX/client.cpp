@@ -4,14 +4,13 @@
 #include <arpa/inet.h> 
 #include <unistd.h> 
 #include <string.h> 
-
-#include <thread>
+#include <iostream> 
 #include <algorithm>
 #define PORT 8080 
    
 int main(int argc, char const *argv[]) 
 { 
-    int sock = 0, valread; 
+    int sock = 0; 
     struct sockaddr_in serv_addr; 
     char buffer[1024] = {0}; 
     if ((sock = socket(AF_UNIX, SOCK_STREAM, 0)) < 0) 
@@ -20,7 +19,7 @@ int main(int argc, char const *argv[])
         return -1; 
     } 
    
-    struct sockaddr saddr = {AF_UNIX, "serverMy"};
+    struct sockaddr saddr = {AF_UNIX, "/opt/ttyMy"};
    
     if (connect(sock, &saddr, sizeof(saddr))) 
     { 
@@ -28,28 +27,17 @@ int main(int argc, char const *argv[])
         return -1; 
     } 
     
-    std::thread sendMy([&](){
-       while(true)
-       {
-          std::string hello = "Hello from client\n"; 
-          send(sock , hello.c_str() , hello.length() , 0 ); 
-          sleep(1);
-       }
-    });
-    
-    std::thread readMy([&](){
-       while(true)
-       {
-          valread = read( sock , buffer, 1024); 
-          printf("%s\n",buffer ); 
-          sleep(1);
-       }
-    });
-    
-    while(true)
+    for(int i = 0; i < 20; i++)
     {
-        
+       std::string hello = "Hello from client"; 
+       send(sock, hello.c_str() , hello.length(), 0); 
+       read(sock, buffer, 1024); 
+       printf("%s\n", buffer);
+       sleep(1);
     }
+    
+    close(sock);
+    
     return 0; 
 }  
 

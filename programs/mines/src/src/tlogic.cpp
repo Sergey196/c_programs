@@ -29,133 +29,122 @@ TLogic::TLogic(TController *_pointOnControler)
 //---------------------------------------------------------------------------
 void TLogic::startGame()
 {
+   freeField = 100;
    for(int i = 0; i < COUT_ROWS_COLUMS; i++)
    {
       for(int j = 0; j < COUT_ROWS_COLUMS; j++)
       {
-         fields[i][j] = NONE; 
+         fields[i][j] =  CellState { FREE, 0, false }; 
       }
    }
 
-   std::vector<int> mines;
-   for(int i = 0; i < 99; i++)
+   for(int i = 0; i < COUT_ROWS_COLUMS; i++)
    {
-      mines.push_back(i);
-   }
-   std::random_device rd;
-   std::mt19937 g(rd());
-   std::shuffle(mines.begin(), mines.end(), g);
-   
-   for(int i = 0; i < 20; i++)
-   {
-      int x;
-      int y;
-      std::string num_str = std::to_string(mines.at(i));
-      if(num_str.length() == 1)
+      for(int j = 0; j < COUT_ROWS_COLUMS; j++)
       {
-         x = num_str.at(0);
-         y = 0;
-      } else {
-         x = num_str.at(0) - '0'; 
-         y = num_str.at(1) - '0'; 
+         if((rand() % 5) == MINE) {
+            fields[i][j].value = MINE;
+            freeField--;
+         }
       }
-      fields[x][y] = MINE_NONE; 
-      freeField--;
+   }
+   
+   for(int i = 0; i < COUT_ROWS_COLUMS; i++)
+   {
+      for(int j = 0; j < COUT_ROWS_COLUMS; j++)
+      {
+         fields[i][j].coutMines = getCoutMinesAroundField(i, j);
+      }
    }
 }
 //---------------------------------------------------------------------------
 CellState TLogic::getCellValue(int x, int y)
 {
-   CellState state { fields[x][y], getCoutMinesAroundField(x, y) };
-   return state; 
+   return fields[x][y]; 
 }
 //---------------------------------------------------------------------------
 void TLogic::selectCell(int x, int y)
 {
-   if(fields[x][y] == MINE_NONE)
-   {
+   
+   if(fields[x][y].value == MINE) {
+      fields[x][y].value = MINE_BOM;
+      pointOnControler->stopGame(); 
+      return;
+   } else if(fields[x][y].value == FREE) {
       for(int i = 0; i < COUT_ROWS_COLUMS; i++)
       {
          for(int j = 0; j < COUT_ROWS_COLUMS; j++)
          {
-            if(fields[i][j] == MINE_NONE)
-            {
-               fields[i][j] = MINE_BOM;  
-            }
+            fields[i][j].isCheck = false;
          }
       }
-      pointOnControler->gameStatus(false); 
-   } else if(fields[x][y] == NONE) { 
       searchOtherFreeFields(x, y);
-      if(fields[x][y] != FREE)
-      {
-         freeField--; 
-         fields[x][y] = FREE;  
-      }
-      if(freeField == 0)
-      {
-         pointOnControler->gameStatus(true); 
-      }
+   }
+   
+   if(freeField == 0) {
+      pointOnControler->stopGame(); 
    }
 }
 //---------------------------------------------------------------------------
 void TLogic::searchOtherFreeFields(int x, int y)
 {
-   if(x < 0 || x > 9 || y < 0 || y > 9)
+   if(x < 0 || x > COUT_ROWS_COLUMS - 1 || y < 0 || y > COUT_ROWS_COLUMS - 1)
    {
       return; 
    }
-   if(fields[x][y] != NONE)
-   {
-      return; 
+   
+   if(fields[x][y].isCheck) {
+      return;
    }
-   fields[x][y] = FREE; 
+   
+   fields[x][y].isCheck = true;
+   fields[x][y].value = SELECT;
    freeField--;
-   if(getCoutMinesAroundField(x, y) == 0)
-   {
-      searchOtherFreeFields(x - 1, y);
+   
+   if(fields[x][y].coutMines == 0) {
       searchOtherFreeFields(x + 1, y);
-      searchOtherFreeFields(x, y - 1);
+      searchOtherFreeFields(x - 1, y);
       searchOtherFreeFields(x, y + 1);
-      searchOtherFreeFields(x - 1, y - 1);
+      searchOtherFreeFields(x, y - 1);
       searchOtherFreeFields(x + 1, y + 1);
+      searchOtherFreeFields(x - 1, y - 1);
       searchOtherFreeFields(x - 1, y + 1);
       searchOtherFreeFields(x + 1, y - 1);
-   } 
+   }
 }
 //---------------------------------------------------------------------------
 int TLogic::getCoutMinesAroundField(int x, int y)
 {
    int result { 0 }; 
-   if((x != 0) && ((fields[x - 1][y] == MINE_NONE) || (fields[x - 1][y] == MINE_BOM)))
+   if((x > 0) && (fields[x - 1][y].value == MINE))
    {
       result++;
    }
-   if((x != 9) && ((fields[x + 1][y] == MINE_NONE) || (fields[x + 1][y] == MINE_BOM)))
+   if((x < COUT_ROWS_COLUMS - 1) && (fields[x + 1][y].value == MINE))
    {
       result++;
    }
-   if((y != 0) && ((fields[x][y - 1] == MINE_NONE) || (fields[x][y - 1] == MINE_BOM)))
+   if((y > 0) && (fields[x][y - 1].value == MINE))
    {
       result++;
    }
-   if((y != 9) && ((fields[x][y + 1] == MINE_NONE) || (fields[x][y + 1] == MINE_BOM)))
+   if((y < COUT_ROWS_COLUMS - 1) && (fields[x][y + 1].value == MINE))
    {
       result++;
    }
-   if((x != 9) && (y != 9) && ((fields[x + 1][y + 1] == MINE_NONE) || (fields[x + 1][y + 1] == MINE_BOM)))
+   if((x < COUT_ROWS_COLUMS - 1) && (y < COUT_ROWS_COLUMS - 1) && (fields[x + 1][y + 1].value == MINE))
    {
       result++;
    }
-   if((x != 0) && (y != 0) && ((fields[x - 1][y - 1] == MINE_NONE) || (fields[x - 1][y - 1] == MINE_BOM)))
+   if((x > 0) && (y > 0) && (fields[x - 1][y - 1].value == MINE))
    {
       result++;
    }
-   if((x != 9) && (y != 0) && ((fields[x + 1][y - 1] == MINE_NONE) || (fields[x + 1][y - 1] == MINE_BOM)))
+   if((x != COUT_ROWS_COLUMS - 1) && (y > 0) && (fields[x + 1][y - 1].value == MINE))
    {
       result++;
    }
-   if((x != 0) && (y != 9) && ((fields[x - 1][y + 1] == MINE_NONE) || (fields[x - 1][y + 1] == MINE_BOM)))
+   if((x > 0) && (y != COUT_ROWS_COLUMS - 1) && (fields[x - 1][y + 1].value == MINE))
    {
       result++;
    }

@@ -10,27 +10,13 @@ const int PANEl_X0 { 60 };
 const int PANEl_X1 { 360 };
 const int PANEl_Y0  { 60 };
 const int PANEl_Y1  { 360 };
+const int MAX_SIZE  { 360 };
 
-enum CellValue
-{
-   FREE,
-   FOOD,
-   SNAKE
-};
-
-enum Direction
-{
-   UP,
-   DOWN,
-   LEFT,
-   RIGHT
-};
-
-struct CellCoordinats
+struct Cell
 {
    int x;
    int y;
+   int value;
 };
-
 
 #endif

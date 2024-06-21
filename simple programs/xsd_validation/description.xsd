@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:group name="adc">
+      <xs:sequence>
+         <xs:element name="channel" type="xs:decimal"/>
+         <xs:element name="channel_name" type="xs:string"/>
+         <xs:element name="divider" type="xs:decimal"/>
+         <xs:element name="minValue" type="xs:decimal"/>
+         <xs:element name="maxValue" type="xs:decimal"/>
+         <xs:element name="input_mode" type="xs:decimal"/>
+         <xs:element name="input_range" type="xs:decimal"/>
+      </xs:sequence>> 
+   </xs:group>
+   <xs:element name="description">
+     <xs:complexType>
+       <xs:all>
+          <xs:element name="pci_1002lu"> 
+             <xs:complexType>
+                 <xs:sequence>
+                    <xs:element name="pci_1002lu_description" minOccurs="0" maxOccurs="10">
+                       <xs:complexType>
+                          <xs:sequence>
+                             <xs:element name="adc" minOccurs="0" maxOccurs="32"> 
+                               <xs:complexType>
+                                  <xs:group ref="adc"/>
+                                  <xs:attribute name="used" type="xs:decimal"/>
+                                </xs:complexType>    
+                             </xs:element>   
+                          </xs:sequence>
+                          <xs:attribute name="used" type="xs:decimal"/>
+                       </xs:complexType> 
+                    </xs:element> 
+                 </xs:sequence>
+             </xs:complexType>    
+          </xs:element> 
+          <xs:element name="dd64"> 
+             <xs:complexType>
+                 <xs:sequence>
+                    <xs:element name="dd64_description" minOccurs="0" maxOccurs="10"> 
+                      <xs:complexType>
+                         <xs:sequence>
+                            <xs:element name="dd64_adc"> 
+                               <xs:complexType>
+                                  <xs:sequence>
+                                     <xs:element name="adc" minOccurs="0" maxOccurs="16"> 
+                                       <xs:complexType>
+                                          <xs:group ref="adc"/>
+                                          <xs:attribute name="used" type="xs:decimal"/>
+                                        </xs:complexType>    
+                                     </xs:element> 
+                                  </xs:sequence>
+                               </xs:complexType>    
+                            </xs:element> 
+                            <xs:element name="dd64_io"> 
+                               <xs:complexType>
+                                  <xs:sequence>
+                                     <xs:element name="io" minOccurs="0" maxOccurs="64"> 
+                                       <xs:complexType>
+                                          <xs:sequence>
+                                             <xs:element name="channel" type="xs:decimal"/>
+                                             <xs:element name="channel_name" type="xs:string"/>
+                                          </xs:sequence>
+                                          <xs:attribute name="used" type="xs:decimal"/>
+                                        </xs:complexType>    
+                                     </xs:element> 
+                                  </xs:sequence>
+                               </xs:complexType>    
+                            </xs:element> 
+                         </xs:sequence>
+                         <xs:attribute name="used" type="xs:decimal"/>
+                      </xs:complexType>    
+                    </xs:element> 
+                 </xs:sequence>
+             </xs:complexType>    
+          </xs:element> 
+       </xs:all>
+     </xs:complexType>
+   </xs:element> 
+</xs:schema> 

@@ -43,7 +43,7 @@ void TController::selectCell(int x, int y)
    logic->selectCell(x, y);
 }
 //---------------------------------------------------------------------------
-void TController::gameStatus(bool status)
+void TController::stopGame()
 {
-   gui->gameStatus(status); 
+   gui->stopGame(); 
 }

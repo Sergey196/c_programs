@@ -15,7 +15,7 @@ class TController
       void startGame() { logic->startGame(); }
       CellState getCellValue(int x, int y);
       void selectCell(int x, int y);
-      void gameStatus(bool status);
+      void stopGame();
    private:
       TGui *gui;
       TLogic *logic;

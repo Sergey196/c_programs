@@ -1,0 +1,1 @@
+cmd_/home/utkinsv/github_programs/linux_driver/driver_scull/dd64.mod := printf '%s\n'   main.o sull.o | awk '!x[$$0]++ { print("/home/utkinsv/github_programs/linux_driver/driver_scull/"$$0) }' > /home/utkinsv/github_programs/linux_driver/driver_scull/dd64.mod

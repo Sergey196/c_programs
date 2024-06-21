@@ -1,0 +1,20 @@
+cmake_minimum_required(VERSION 3.16)
+set (PROGRAM_NAME turel)
+project(${PROGRAM_NAME} VERSION 1.0.0 LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD 20)
+
+find_package(Qt5 COMPONENTS Widgets REQUIRED)
+set(HEADERS_DIRECTORY ${CMAKE_SOURCE_DIR}/src/include)
+set(SOURCES_DIRECTORY ${CMAKE_SOURCE_DIR}/src/src)
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin)
+include_directories(${SOURCES_DIRECTORY} ${HEADERS_DIRECTORY})
+set(HEADERS
+   ${HEADERS_DIRECTORY}/tbaseitem.h
+)
+
+set(SOURCES
+   ${SOURCES_DIRECTORY}/main.cpp
+)
+add_executable(${PROGRAM_NAME} ${HEADERS} ${SOURCES})
+

@@ -1,0 +1,10 @@
+echo "POSTINST" 
+chown -R utkinsv:utkinsv /opt/test_package/ #Смена владельца папки
+mkdir /opt/test_package/test_dir #Создание новой папки
+touch /opt/test_package/test_dir/test_file #Создание нового файла
+echo "print input:" 
+read word  
+echo $word > /opt/test_package/test_dir/test_file #Запись введённого текста в файл
+
+
+

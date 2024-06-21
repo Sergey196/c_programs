@@ -18,22 +18,24 @@
 #define TLOGIC_H
 
 #include "tbaseitem.h"
-#include <queue>
-#include <QTimer>
-#include <QObject>
+#include <vector>
 
 class TController;
 
-class TLogic: public QObject
+class TLogic
 {
 public: 
    TLogic(TController *pointOnControler); 
    void startGame();
-   CellValue getCellValue(int x, int y) { return field[x][y]; }
-   
+   int getCellValue(int x, int y) { return list_cells[x][y]; }
+   void keyPress(int key);
 private:
+   void addRandomCells();
+   bool checkFreeCells();
    TController *pointOnControler;
-   CellValue field[COUT_ROWS_COLUMS][COUT_ROWS_COLUMS] { { FREE } };
+   int list_cells[COUT_ROWS_COLUMS][COUT_ROWS_COLUMS];
+   std::vector<Cell> current_cells;
+   
 };
 
 #endif // TLOGIC_H

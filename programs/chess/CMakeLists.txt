@@ -1,4 +1,6 @@
-cmake_minimum_required(VERSION 3.11)
+cmake_minimum_required(VERSION 3.16)
+set (PROGRAM_NAME chess)
+project(${PROGRAM_NAME} VERSION 1.0.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -7,32 +9,26 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-find_package(Qt5 COMPONENTS Widgets REQUIRED)
-
-file(MAKE_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
-file(MAKE_DIRECTORY ${CMAKE_SOURCE_DIR}/build)
-set(RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
+find_package(Qt6 COMPONENTS Widgets REQUIRED)
+set(HEADERS_DIRECTORY ${CMAKE_SOURCE_DIR}/src/include)
+set(SOURCES_DIRECTORY ${CMAKE_SOURCE_DIR}/src/src)
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin)
-set(HEADERS_DIRECTORY ${CMAKE_SOURCE_DIR}/include)
-set(SOURCES_DIRECTORY ${CMAKE_SOURCE_DIR}/src)
-include_directories(${HEADERS_DIRECTORY} ${SOURCES_DIRECTORY} ${Qt5Widgets_INCLUDE_DIRS} ${Qt5Core_INCLUDE_DIRS} )
+set(RECURSES ${CMAKE_SOURCE_DIR}/pictures.qrc)
+include_directories(${Qt6Widgets_INCLUDE_DIRS} ${Qt6Core_INCLUDE_DIRS} ${SOURCES_DIRECTORY} ${HEADERS_DIRECTORY})
 
 set(HEADERS
-   ${HEADERS_DIRECTORY}/baseitem.h
-   ${HEADERS_DIRECTORY}/logic.h
-   ${HEADERS_DIRECTORY}/gui.h
-   ${HEADERS_DIRECTORY}/controler.h
+   ${HEADERS_DIRECTORY}/tbaseitem.h
+   ${HEADERS_DIRECTORY}/tgui.h
+   ${HEADERS_DIRECTORY}/tcontroller.h
+   ${HEADERS_DIRECTORY}/tlogic.h
 )
 
 set(SOURCES
    ${SOURCES_DIRECTORY}/main.cpp
-   ${SOURCES_DIRECTORY}/logic.cpp
-   ${SOURCES_DIRECTORY}/gui.cpp
-   ${SOURCES_DIRECTORY}/controler.cpp
+   ${SOURCES_DIRECTORY}/tgui.cpp
+   ${SOURCES_DIRECTORY}/tcontroller.cpp
+   ${SOURCES_DIRECTORY}/tlogic.cpp
 )
-
-add_executable(${PROJECT_NAME} ${HEADERS} ${SOURCES})
-
-# линкуем библиотеки к проекту
-target_link_libraries(${PROJECT_NAME} Qt5::Widgets)
+add_executable(${PROGRAM_NAME} ${HEADERS} ${SOURCES} ${RECURSES})
+target_link_libraries(${PROGRAM_NAME} PRIVATE Qt6::Widgets)
 

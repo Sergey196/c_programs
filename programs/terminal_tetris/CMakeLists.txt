@@ -18,5 +18,5 @@ set(SOURCES
    ${SOURCES_DIRECTORY}/main.cpp
 )
 
-add_executable(${PROJECT_NAME} ${MOC_SOURCES} ${HEADERS} ${SOURCES})
+add_executable(${PROJECT_NAME} ${HEADERS} ${SOURCES})
 

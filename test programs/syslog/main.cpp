@@ -5,8 +5,8 @@
 
 int main()
 {
-   openlog("test", LOG_PID, LOG_USER);
-   syslog(LOG_DEBUG, "TEST gfsaegsdgsdgsdg");
+   openlog("TEST", LOG_PID, LOG_USER);
+   syslog(LOG_DEBUG, "TEST gfsaegsdgsdgsdg %d", 25);
    closelog();
    return 0; 
 }

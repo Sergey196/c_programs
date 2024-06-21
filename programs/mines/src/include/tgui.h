@@ -33,7 +33,7 @@ class TGui : public QMainWindow
 {
    public:
       TGui(TController *pointOnControler);
-      void gameStatus(bool status);
+      void stopGame();
    private:
       void paintEvent(QPaintEvent *) override;
       void mousePressEvent( QMouseEvent* event) override;  

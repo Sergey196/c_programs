@@ -1,6 +1,6 @@
 ###############################################
-set (PROJECT_PROTOCOL_UTP protocol_utp)
-project(${PROJECT_PROTOCOL_UTP})
+set (PROJECT_NAME protocol_utp)
+project(${PROJECT_NAME})
 ###############################################
 cmake_minimum_required(VERSION 3.16.0)
 set(CMAKE_CXX_STANDARD 17)
@@ -24,7 +24,6 @@ set(RUNTIME_PROGRAMMS
   client
 )
 
-SET(CMAKE_CXX_FLAGS -pthread)
 
 message(${CMAKE_SYSTEM_NAME} ${CMAKE_SYSTEM_VERSION})
 ###############################################

@@ -42,6 +42,7 @@ TGui::TGui(TController *_pointOnControler)
     QToolBar* ptb = new QToolBar("Linker ToolBar");
     ptb->addAction("Старт", this, [this]() {
        pointOnControler->startGame(); 
+       repaint();
     });
     ptb->addAction("Выход", this, [this]() {
        close(); 
@@ -59,33 +60,57 @@ void TGui::paintEvent(QPaintEvent *)
    QPainter painter(this);
    painter.setFont(QFont("times", 18));
    
-   auto printField = [&painter](CellInfo info) {
-       if(info.value == FREE) {
-          painter.setBrush(Qt::gray);    
-       } else if(info.value == FOOD) {
-          painter.setBrush(Qt::white);  
-       } else if(info.value == SNAKE) {
-           painter.setBrush(Qt::red);   
+   auto printField = [&painter](int count, int x, int y) {
+       if(count == 0) {
+          painter.setBrush(Qt::white);    
+       } else if(count == 2) {
+          painter.setBrush(Qt::darkYellow);    
+       } else if(count == 4) {
+          painter.setBrush(Qt::darkGray);  
+       } else if(count == 8) {
+           painter.setBrush(Qt::gray);   
+       } else if(count == 16) {
+           painter.setBrush(Qt::lightGray);   
+       } else if(count == 32) {
+           painter.setBrush(Qt::green);   
+       } else if(count == 64) {
+           painter.setBrush(Qt::blue);   
+       } else if(count == 128) {
+           painter.setBrush(Qt::cyan);   
+       } else if(count == 256) {
+           painter.setBrush(Qt::magenta);   
+       } else if(count == 512) {
+           painter.setBrush(Qt::yellow);   
+       } else if(count == 1024) {
+           painter.setBrush(Qt::darkRed);   
+       } else if(count == 2048) {
+           painter.setBrush(Qt::darkBlue);   
        }
-       
-       painter.drawRect((info.coordinats.x + 2) * FIELD_SIZE, (info.coordinats.y + 2) * FIELD_SIZE, FIELD_SIZE, FIELD_SIZE);  
+       painter.drawRect((x + 2) * FIELD_SIZE, (y + 2) * FIELD_SIZE, FIELD_SIZE, FIELD_SIZE);  
+       painter.drawText((x + 2) * FIELD_SIZE, (y + 2) * FIELD_SIZE, FIELD_SIZE, FIELD_SIZE, Qt::AlignCenter, /*(count > 0) ? QString::number(count) : ""*/QString::number(count));
    };
    
    for(int i = 0; i < COUT_ROWS_COLUMS; i++)
    {
       for(int j = 0; j < COUT_ROWS_COLUMS; j++)
       {
-         printField(CellInfo { pointOnControler->getCellValue(i, j), CellCoordinats { i, j } });
+         printField(pointOnControler->getCellValue(i, j), i, j);
       }
    }
 }
 //---------------------------------------------------------------------------
 void TGui::keyPressEvent(QKeyEvent *event)
 {
-
+   if(!state_game) {
+      return; 
+   } 
+   pointOnControler->keyPress(event->key());
+   repaint();
+   
 }
 //---------------------------------------------------------------------------
 void TGui::setGameState(bool state)
 {
-   std::cout << "TEST = " << state << std::endl; 
+   state_game = state;
+   std::cout << "TEST state = " << state << std::endl; 
 }

@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/">
+        <file alias="black_pawn" >chess_figures/black_pawn.png</file>
+        <file alias="white_pawn" >chess_figures/white_pawn.png</file>
+        <file alias="black_rook" >chess_figures/black_rook.png</file>
+        <file alias="white_rook" >chess_figures/white_rook.png</file>
+        <file alias="black_knight" >chess_figures/black_knight.png</file>
+        <file alias="white_knight" >chess_figures/white_knight.png</file>
+        <file alias="black_bishop" >chess_figures/black_bishop.png</file>
+        <file alias="white_bishop" >chess_figures/white_bishop.png</file>
+        <file alias="black_quen" >chess_figures/black_quen.png</file>
+        <file alias="white_quen" >chess_figures/white_quen.png</file>
+        <file alias="black_king" >chess_figures/black_king.png</file>
+        <file alias="white_king" >chess_figures/white_king.png</file>
+    </qresource>
+</RCC>

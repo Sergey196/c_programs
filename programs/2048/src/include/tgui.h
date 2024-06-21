@@ -23,12 +23,6 @@
 class QFrame;
 class TController;
 
-struct CellInfo
-{
-   CellValue value;
-   CellCoordinats coordinats;
-};
-
 class TGui : public QMainWindow
 {
    public:
@@ -38,6 +32,7 @@ class TGui : public QMainWindow
       void paintEvent(QPaintEvent *) override;  
       void keyPressEvent(QKeyEvent *event) override; 
       TController *pointOnControler;
+      bool state_game { false };
 };
 
 
